@@ -1,48 +1,66 @@
-package com.example.sistemajuridico.controller;
+package com.example.sistemajuridico.controller; // PACOTE CORRIGIDO
 
 import com.example.sistemajuridico.model.Advogado;
 import com.example.sistemajuridico.model.Avaliacao;
 import com.example.sistemajuridico.repository.AvaliacaoRepository;
 import com.example.sistemajuridico.repository.AdvogadoRepository;
-import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.beans.factory.annotation.Autowired; // IMPORT ADICIONADO
+import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 import java.util.List;
+import java.util.Optional;
 
 @RestController
 @RequestMapping("/avaliacoes")
 public class AvaliacaoController {
 
-    @Autowired
-    private AvaliacaoRepository avaliacaoRepository;
+    private final AvaliacaoRepository avaliacaoRepository;
+    private final AdvogadoRepository advogadoRepository;
 
     @Autowired
-    private AdvogadoRepository advogadoRepository;
+    public AvaliacaoController(AvaliacaoRepository avaliacaoRepository,
+                               AdvogadoRepository advogadoRepository) {
+        this.avaliacaoRepository = avaliacaoRepository;
+        this.advogadoRepository = advogadoRepository;
+    }
 
-    // Cadastrar avaliação e atualizar reputação do advogado
     @PostMapping
-    public Avaliacao criarAvaliacao(@RequestBody Avaliacao avaliacao) {
-        // Salva a avaliação
+    public ResponseEntity<?> criarAvaliacao(@RequestBody Avaliacao avaliacao) {
+        if (avaliacao.getNota() < 1 || avaliacao.getNota() > 5) {
+            return ResponseEntity.badRequest().body("Nota deve ser entre 1 e 5");
+        }
+
+        Optional<Advogado> advogadoOpt = advogadoRepository.findById(avaliacao.getAdvogado().getId());
+        if (advogadoOpt.isEmpty()) {
+            return ResponseEntity.badRequest().body("Advogado não encontrado");
+        }
+
+        Advogado advogado = advogadoOpt.get();
         Avaliacao avaliacaoSalva = avaliacaoRepository.save(avaliacao);
 
-        // Atualiza a reputação do advogado
-        Advogado advogado = avaliacao.getAdvogado();
         double novaMedia = calcularNovaReputacao(advogado, avaliacao.getNota());
         advogado.setReputacao(novaMedia);
         advogadoRepository.save(advogado);
 
-        return avaliacaoSalva;
+        return ResponseEntity.ok(avaliacaoSalva);
     }
 
-    // Listar todas as avaliações
     @GetMapping
     public List<Avaliacao> listarAvaliacoes() {
         return avaliacaoRepository.findAll();
     }
 
     private double calcularNovaReputacao(Advogado advogado, Integer novaNota) {
-        if (advogado.getReputacao() == 0.0) {
-            return novaNota.doubleValue();
+        List<Avaliacao> avaliacoes = avaliacaoRepository.findByAdvogadoId(advogado.getId());
+
+        if (avaliacoes.isEmpty()) {
+            return novaNota;
         }
-        return (advogado.getReputacao() + novaNota) / 2;
+
+        double soma = avaliacoes.stream()
+                .mapToInt(Avaliacao::getNota)
+                .sum() + novaNota;
+
+        return soma / (avaliacoes.size() + 1);
     }
 }

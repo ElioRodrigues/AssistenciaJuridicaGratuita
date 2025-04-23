@@ -13,13 +13,13 @@ public class AgendamentoController {
     @Autowired
     private AgendamentoRepository agendamentoRepository;
 
-    // Criar agendamento
+
     @PostMapping
     public Agendamento criarAgendamento(@RequestBody Agendamento agendamento) {
         return agendamentoRepository.save(agendamento);
     }
 
-    // Listar todos os agendamentos
+
     @GetMapping
     public List<Agendamento> listarAgendamentos() {
         return agendamentoRepository.findAll();

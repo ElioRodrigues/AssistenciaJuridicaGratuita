@@ -5,17 +5,19 @@ import org.springframework.web.bind.annotation.GetMapping;
 
 @Controller
 public class HomeController {
+
     @GetMapping("/")
-    public String home(){
+    public String home() {
         return "home";
     }
+
     @GetMapping("/cadastro-cliente")
     public String cadastroCliente() {
-        return "cadastro-cliente"; // templates
+        return "cadastro-cliente"; // Página de cadastro de cliente
     }
 
     @GetMapping("/cadastro-advogado")
     public String cadastroAdvogado() {
-        return "cadastro-advogado";
+        return "cadastro-advogado"; // Página de cadastro de advogado
     }
 }
