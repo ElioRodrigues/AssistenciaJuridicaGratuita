@@ -7,7 +7,7 @@ import org.springframework.security.core.userdetails.UserDetails;
 
 import java.util.Collection;
 import java.util.Collections;
-import java.util.List;
+// import java.util.List; // Import não utilizado removido
 
 @Entity
 public class Cliente implements UserDetails {
@@ -91,7 +91,7 @@ public class Cliente implements UserDetails {
         return email;
     }
 
-    // Métodos padrão UserDetails (isAccountNonExpired, etc.) - podem ser adicionados se necessário
+    // Métodos padrão UserDetails
     @Override
     public boolean isAccountNonExpired() {
         return true;

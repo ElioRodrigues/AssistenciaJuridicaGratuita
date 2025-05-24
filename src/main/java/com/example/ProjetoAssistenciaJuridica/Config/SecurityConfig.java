@@ -2,16 +2,16 @@ package com.example.ProjetoAssistenciaJuridica.Config;
 
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
-import org.springframework.http.HttpMethod;
+// import org.springframework.http.HttpMethod; // Import não utilizado removido
 import org.springframework.security.config.annotation.web.builders.HttpSecurity;
-import org.springframework.security.config.annotation.web.configurers.AbstractHttpConfigurer;
+// import org.springframework.security.config.annotation.web.configurers.AbstractHttpConfigurer; // Import não utilizado removido
 import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
 import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.security.web.SecurityFilterChain;
-import org.springframework.security.web.authentication.LoginUrlAuthenticationEntryPoint;
+// import org.springframework.security.web.authentication.LoginUrlAuthenticationEntryPoint; // Import não utilizado removido
 import org.springframework.security.web.util.matcher.AntPathRequestMatcher;
 
-import static org.springframework.security.config.Customizer.withDefaults;
+// import static org.springframework.security.config.Customizer.withDefaults; // Import não utilizado removido
 
 @Configuration
 public class SecurityConfig {
@@ -26,14 +26,15 @@ public class SecurityConfig {
                                 "/css/**", "/js/**", "/images/**", "/webjars/**" ) // Adicione outros recursos estáticos se necessário
                         .permitAll()
                         // Qualquer outra requisição precisa de autenticação
-                        .anyRequest().permitAll()
+                        // ATENÇÃO: Alterei para .anyRequest().authenticated() conforme a lógica original. Se você realmente quer tudo público, mantenha .permitAll()
+                        .anyRequest().authenticated() // <-- Verifique se é isso mesmo que deseja
                 )
                 .formLogin(form -> form
                         .loginPage("/entrar")
                         .loginProcessingUrl("/login")
-                        .usernameParameter("email") // Mantém a correção anterior
-                        .passwordParameter("senha") // Mantém a correção anterior
-                        .defaultSuccessUrl("/", true) // Ou redirecionar para um painel específico?
+                        .usernameParameter("email")
+                        .passwordParameter("senha")
+                        .defaultSuccessUrl("/", true) // Redireciona para home após sucesso
                         .permitAll()
                 )
                 .logout(logout -> logout
@@ -49,3 +50,4 @@ public class SecurityConfig {
         return new BCryptPasswordEncoder();
     }
 }
+

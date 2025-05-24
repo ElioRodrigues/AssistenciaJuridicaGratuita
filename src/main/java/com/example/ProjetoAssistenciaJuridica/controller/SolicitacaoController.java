@@ -1,7 +1,7 @@
 package com.example.ProjetoAssistenciaJuridica.controller;
 
-import com.example.ProjetoAssistenciaJuridica.model.Advogado;
-import com.example.ProjetoAssistenciaJuridica.model.Cliente;
+// import com.example.ProjetoAssistenciaJuridica.model.Advogado; // Import não utilizado removido
+// import com.example.ProjetoAssistenciaJuridica.model.Cliente; // Import não utilizado removido
 import com.example.ProjetoAssistenciaJuridica.model.Solicitacao;
 import com.example.ProjetoAssistenciaJuridica.service.SolicitacaoService;
 import com.example.ProjetoAssistenciaJuridica.service.UserService;
@@ -36,7 +36,7 @@ public class SolicitacaoController {
     // --- Rotas para Clientes ---
 
     @GetMapping("/cliente/solicitacao/nova")
-    @PreAuthorize("hasRole(\'CLIENTE\')") // Corrigido: aspas simples internas
+    @PreAuthorize("hasRole(\'CLIENTE\')")
     public String showNovaSolicitacaoForm(Model model) {
         model.addAttribute("solicitacao", new Solicitacao());
         model.addAttribute("categorias", categoriasJuridicas);
@@ -44,7 +44,7 @@ public class SolicitacaoController {
     }
 
     @PostMapping("/cliente/solicitacao/nova")
-    @PreAuthorize("hasRole(\'CLIENTE\')") // Corrigido: aspas simples internas
+    @PreAuthorize("hasRole(\'CLIENTE\')")
     public String processNovaSolicitacao(@ModelAttribute("solicitacao") Solicitacao solicitacao,
                                          BindingResult result,
                                          Authentication authentication,
@@ -68,7 +68,7 @@ public class SolicitacaoController {
     }
 
     @GetMapping("/cliente/solicitacoes/historico")
-    @PreAuthorize("hasRole(\'CLIENTE\')") // Corrigido: aspas simples internas
+    @PreAuthorize("hasRole(\'CLIENTE\')")
     public String showHistoricoCliente(Model model, Authentication authentication) {
         UserDetails userDetails = (UserDetails) authentication.getPrincipal();
         List<Solicitacao> solicitacoes = solicitacaoService.buscarSolicitacoesPorCliente(userDetails.getUsername());
@@ -79,7 +79,7 @@ public class SolicitacaoController {
     // --- Rotas para Advogados ---
 
     @GetMapping("/advogado/solicitacoes/listar")
-    @PreAuthorize("hasRole(\'ADVOGADO\')") // Corrigido: aspas simples internas
+    @PreAuthorize("hasRole(\'ADVOGADO\')")
     public String showListarSolicitacoesAbertas(Model model) {
         List<Solicitacao> solicitacoes = solicitacaoService.buscarSolicitacoesAbertas();
         model.addAttribute("solicitacoes", solicitacoes);
@@ -87,7 +87,7 @@ public class SolicitacaoController {
     }
 
     @PostMapping("/advogado/solicitacao/assumir/{id}")
-    @PreAuthorize("hasRole(\'ADVOGADO\')") // Corrigido: aspas simples internas
+    @PreAuthorize("hasRole(\'ADVOGADO\')")
     public String assumirSolicitacao(@PathVariable Long id,
                                      Authentication authentication,
                                      RedirectAttributes redirectAttributes) {
@@ -103,7 +103,7 @@ public class SolicitacaoController {
     }
 
     @GetMapping("/advogado/solicitacoes/aceitas")
-    @PreAuthorize("hasRole(\'ADVOGADO\')") // Corrigido: aspas simples internas
+    @PreAuthorize("hasRole(\'ADVOGADO\')")
     public String showHistoricoAdvogado(Model model, Authentication authentication) {
         UserDetails userDetails = (UserDetails) authentication.getPrincipal();
         List<Solicitacao> solicitacoes = solicitacaoService.buscarSolicitacoesPorAdvogado(userDetails.getUsername());
