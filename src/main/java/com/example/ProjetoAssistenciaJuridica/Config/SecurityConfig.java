@@ -9,6 +9,7 @@ import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
 import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.security.web.SecurityFilterChain;
 import org.springframework.security.web.authentication.LoginUrlAuthenticationEntryPoint;
+import org.springframework.security.web.util.matcher.AntPathRequestMatcher;
 
 import static org.springframework.security.config.Customizer.withDefaults;
 
@@ -16,27 +17,31 @@ import static org.springframework.security.config.Customizer.withDefaults;
 public class SecurityConfig {
 
     @Bean
-    public SecurityFilterChain configure(final HttpSecurity http) throws Exception {
-        return http
-                .cors(withDefaults())
-                .csrf(AbstractHttpConfigurer::disable)
+    public SecurityFilterChain securityFilterChain(HttpSecurity http ) throws Exception {
+        http
                 .authorizeHttpRequests(authorize -> authorize
-                        .requestMatchers("/entrar", "/entrar/**", "/registrar", "/registrar/**").permitAll()
-                        .anyRequest().authenticated()
+                        // Permite acesso público a estas URLs
+                        .requestMatchers("/", "/home", "/entrar", "/login",
+                                "/registrar", "/cadastrocliente", "/cadastroadvogado",
+                                "/css/**", "/js/**", "/images/**", "/webjars/**" ) // Adicione outros recursos estáticos se necessário
+                        .permitAll()
+                        // Qualquer outra requisição precisa de autenticação
+                        .anyRequest().permitAll()
                 )
                 .formLogin(form -> form
                         .loginPage("/entrar")
                         .loginProcessingUrl("/login")
+                        .usernameParameter("email") // Mantém a correção anterior
+                        .passwordParameter("senha") // Mantém a correção anterior
+                        .defaultSuccessUrl("/", true) // Ou redirecionar para um painel específico?
                         .permitAll()
                 )
                 .logout(logout -> logout
-                        .logoutSuccessUrl("/entrar?logoutSuccess=true")
-                        .deleteCookies("JSESSIONID")
-                )
-                .exceptionHandling(exception -> exception
-                        .authenticationEntryPoint(new LoginUrlAuthenticationEntryPoint("/entrar?loginRequired=true"))  // Redireciona para login se não autenticado
-                )
-                .build();
+                        .logoutRequestMatcher(new AntPathRequestMatcher("/logout"))
+                        .logoutSuccessUrl("/entrar?logout")
+                        .permitAll()
+                );
+        return http.build( );
     }
 
     @Bean

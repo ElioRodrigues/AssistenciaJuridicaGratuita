@@ -2,7 +2,7 @@
 <html lang="pt-br" xmlns:th="http://www.thymeleaf.org">
 <head>
   <meta charset="UTF-8">
-  <title>Cadastro de Cliente</title>
+  <title>Cadastro de Advogado</title>
 
   <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.2/dist/css/bootstrap.min.css" rel="stylesheet">
 
@@ -12,9 +12,9 @@
 <body>
 
 <div class="container mt-4">
-  <h2>Cadastro de Cliente</h2>
+  <h2>Cadastro de Advogado</h2>
   <!-- Adiciona th:action e th:object para integração com Spring -->
-  <form id="cadastroClienteForm" th:action="@{/registrar/cliente}" th:object="${cliente}" method="post" class="needs-validation" novalidate>
+  <form id="cadastroAdvogadoForm" th:action="@{/registrar/advogado}" th:object="${advogado}" method="post" class="needs-validation" novalidate>
     <div class="mb-3">
       <label for="nomeCompleto" class="form-label">Nome Completo</label>
       <!-- Adiciona th:field -->
@@ -82,32 +82,42 @@
         <div class="invalid-feedback">Por favor, selecione o gênero.</div>
     </div>
 
+    <!-- Campo Registro OAB adicionado -->
+    <div class="mb-3">
+      <label for="oab" class="form-label">Registro OAB</label>
+      <!-- Adiciona th:field -->
+      <input type="text" class="form-control" id="oab" th:field="*{oab}" required>
+      <div class="invalid-feedback">Por favor, insira o registro OAB.</div>
+    </div>
+
     <button type="submit" class="btn btn-primary">Cadastrar</button>
     <a href="/" class="btn btn-secondary">Voltar</a>
 
   </form>
 </div>
 
-<!-- Script para máscara de CPF e Telefone (opcional, mas recomendado) -->
+<!-- Script para máscara de CPF, Telefone e CEP (OAB pode precisar de ajuste) -->
 <script>
   $(document).ready(function(){
-    $('#cpf').inputmask('999.999.999-99');
-    $('#telefone').inputmask('(99) 99999-9999');
-    $('#cep').inputmask('99999-999'); // Máscara para CEP
+    $("#cpf").inputmask("999.999.999-99");
+    $("#telefone").inputmask("(99) 99999-9999");
+    $("#cep").inputmask("99999-999");
+    // Adicionar máscara para OAB se o formato for padrão, ex: UF123456
+    // $("#oab").inputmask("AA999999"); // Exemplo, ajustar conforme necessário
   });
 
   // Script para validação Bootstrap
   (function () {
-    'use strict'
-    var forms = document.querySelectorAll('.needs-validation')
+    "use strict"
+    var forms = document.querySelectorAll(".needs-validation")
     Array.prototype.slice.call(forms)
       .forEach(function (form) {
-        form.addEventListener('submit', function (event) {
+        form.addEventListener("submit", function (event) {
           if (!form.checkValidity()) {
             event.preventDefault()
             event.stopPropagation()
           }
-          form.classList.add('was-validated')
+          form.classList.add("was-validated")
         }, false)
       })
   })()

@@ -2,9 +2,11 @@ package com.example.ProjetoAssistenciaJuridica.model;
 
 import jakarta.persistence.*;
 import org.springframework.security.core.GrantedAuthority;
+import org.springframework.security.core.authority.SimpleGrantedAuthority;
 import org.springframework.security.core.userdetails.UserDetails;
 
 import java.util.Collection;
+import java.util.Collections;
 import java.util.List;
 
 @Entity
@@ -18,13 +20,64 @@ public class Cliente implements UserDetails {
     private String email;
     @Column(nullable = false,unique = true)
     private String cpf;
-    @Column(nullable = false,unique = true)
+    @Column(nullable = false)
     private String senha;
 
+    // Novos campos adicionados
+    private String cep;
+    private String endereco;
+    private String telefone;
+    private String genero;
 
+    @Column(nullable = false)
+    private String role = "ROLE_CLIENTE"; // Papel padrão para Cliente
+
+    // Getters e Setters para os novos campos
+    public String getCep() {
+        return cep;
+    }
+
+    public void setCep(String cep) {
+        this.cep = cep;
+    }
+
+    public String getEndereco() {
+        return endereco;
+    }
+
+    public void setEndereco(String endereco) {
+        this.endereco = endereco;
+    }
+
+    public String getTelefone() {
+        return telefone;
+    }
+
+    public void setTelefone(String telefone) {
+        this.telefone = telefone;
+    }
+
+    public String getGenero() {
+        return genero;
+    }
+
+    public void setGenero(String genero) {
+        this.genero = genero;
+    }
+
+    public String getRole() {
+        return role;
+    }
+
+    public void setRole(String role) {
+        this.role = role;
+    }
+
+    // Métodos UserDetails atualizados
     @Override
     public Collection<? extends GrantedAuthority> getAuthorities() {
-        return List.of();
+        // Retorna a role como autoridade
+        return Collections.singletonList(new SimpleGrantedAuthority(this.role));
     }
 
     @Override
@@ -34,19 +87,58 @@ public class Cliente implements UserDetails {
 
     @Override
     public String getUsername() {
+        // Usar email como username para login
         return email;
+    }
+
+    // Métodos padrão UserDetails (isAccountNonExpired, etc.) - podem ser adicionados se necessário
+    @Override
+    public boolean isAccountNonExpired() {
+        return true;
+    }
+
+    @Override
+    public boolean isAccountNonLocked() {
+        return true;
+    }
+
+    @Override
+    public boolean isCredentialsNonExpired() {
+        return true;
+    }
+
+    @Override
+    public boolean isEnabled() {
+        return true;
+    }
+
+    // Getters e Setters existentes
+    public Long getId() {
+        return id;
     }
 
     public void setId(Long id) {
         this.id = id;
     }
 
+    public String getNome() {
+        return nome;
+    }
+
     public void setNome(String nome) {
         this.nome = nome;
     }
 
+    public String getEmail() {
+        return email;
+    }
+
     public void setEmail(String email) {
         this.email = email;
+    }
+
+    public String getCpf() {
+        return cpf;
     }
 
     public void setCpf(String cpf) {
@@ -57,3 +149,4 @@ public class Cliente implements UserDetails {
         this.senha = senha;
     }
 }
+
