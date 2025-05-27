@@ -6,13 +6,11 @@
     <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.2/dist/css/bootstrap.min.css" rel="stylesheet">
 </head>
 <body>
-<!-- Incluir Navbar -->
 <nav class="navbar navbar-expand-lg bg-body-tertiary" th:insert="~{home :: nav}"></nav>
 
 <div class="container mt-4">
     <h2>Solicitações de Assistência Jurídica Abertas</h2>
 
-    <!-- Mensagem de erro/sucesso (vinda do redirect) -->
     <div th:if="${erro}" class="alert alert-danger" role="alert" th:text="${erro}"></div>
     <div th:if="${sucesso}" class="alert alert-success" role="alert" th:text="${sucesso}"></div>
 
@@ -28,7 +26,7 @@
                     <th>Tema</th>
                     <th>Categoria</th>
                     <th>Data Criação</th>
-                    <th>Cliente (Nome)</th> <!-- Opcional: Mostrar nome do cliente? Avaliar privacidade -->
+                    <th>Cliente (Nome)</th>
                     <th>Ações</th>
                 </tr>
             </thead>
@@ -40,11 +38,9 @@
                     <td th:text="${#temporals.format(solicitacao.dataCriacao, 'dd/MM/yyyy HH:mm')}"></td>
                     <td th:text="${solicitacao.cliente.nome}"></td> <!-- Exibe o nome do cliente -->
                     <td>
-                        <!-- Formulário para assumir a solicitação -->
                         <form th:action="@{/advogado/solicitacao/assumir/{id}(id=${solicitacao.id})}" method="post" style="display: inline;">
                             <button type="submit" class="btn btn-sm btn-success">Assumir Caso</button>
                         </form>
-                        <!-- Adicionar botão para ver detalhes se necessário -->
                     </td>
                 </tr>
             </tbody>

@@ -4,10 +4,8 @@ import jakarta.persistence.*;
 import org.springframework.security.core.GrantedAuthority;
 import org.springframework.security.core.authority.SimpleGrantedAuthority;
 import org.springframework.security.core.userdetails.UserDetails;
-
 import java.util.Collection;
 import java.util.Collections;
-// import java.util.List; // Import não utilizado removido
 
 @Entity
 public class Cliente implements UserDetails {
@@ -22,17 +20,20 @@ public class Cliente implements UserDetails {
     private String cpf;
     @Column(nullable = false)
     private String senha;
-
-    // Novos campos adicionados
+    @Column(nullable = false)
     private String cep;
+    @Column(nullable = false)
     private String endereco;
+    @Column(nullable = false)
     private String telefone;
+    @Column(nullable = true)
     private String genero;
 
     @Column(nullable = false)
     private String role = "ROLE_CLIENTE"; // Papel padrão para Cliente
 
-    // Getters e Setters para os novos campos
+    //Getter/Setter
+
     public String getCep() {
         return cep;
     }
@@ -73,7 +74,7 @@ public class Cliente implements UserDetails {
         this.role = role;
     }
 
-    // Métodos UserDetails atualizados
+
     @Override
     public Collection<? extends GrantedAuthority> getAuthorities() {
         // Retorna a role como autoridade
@@ -87,11 +88,10 @@ public class Cliente implements UserDetails {
 
     @Override
     public String getUsername() {
-        // Usar email como username para login
+        // email pra login
         return email;
     }
 
-    // Métodos padrão UserDetails
     @Override
     public boolean isAccountNonExpired() {
         return true;
@@ -112,7 +112,7 @@ public class Cliente implements UserDetails {
         return true;
     }
 
-    // Getters e Setters existentes
+    // G e S
     public Long getId() {
         return id;
     }

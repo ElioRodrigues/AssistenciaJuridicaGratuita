@@ -15,16 +15,14 @@ public interface SolicitacaoRepository extends JpaRepository<Solicitacao, Long> 
     // Encontrar solicitações por cliente
     List<Solicitacao> findByClienteOrderByDataCriacaoDesc(Cliente cliente);
 
-    // Encontrar solicitações por advogado
     List<Solicitacao> findByAdvogadoOrderByDataAceiteDesc(Advogado advogado);
 
-    // Encontrar todas as solicitações com um status específico (ex: ABERTAS)
+    // Encontrar todas as solicitações por status
     List<Solicitacao> findByStatusOrderByDataCriacaoAsc(StatusSolicitacao status);
 
-    // Encontrar solicitações por cliente e status
+    // Encontrar solicitações por ambos
     List<Solicitacao> findByClienteAndStatusOrderByDataCriacaoDesc(Cliente cliente, StatusSolicitacao status);
 
-    // Encontrar solicitações por advogado e status
     List<Solicitacao> findByAdvogadoAndStatusOrderByDataAceiteDesc(Advogado advogado, StatusSolicitacao status);
 }
 

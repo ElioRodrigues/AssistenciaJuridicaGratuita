@@ -1,0 +1,114 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<project version="4">
+  <component name="AutoImportSettings">
+    <option name="autoReloadType" value="SELECTIVE" />
+  </component>
+  <component name="ChangeListManager">
+    <list default="true" id="f803d601-9da6-46eb-a3cd-f63ddea8ebd2" name="Changes" comment="">
+      <change afterPath="$PROJECT_DIR$/.idea/.gitignore" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/.idea/compiler.xml" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/.idea/encodings.xml" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/.idea/jarRepositories.xml" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/.idea/misc.xml" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/.idea/vcs.xml" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/pom.xml" beforeDir="false" afterPath="$PROJECT_DIR$/pom.xml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/java/com/example/ProjetoAssistenciaJuridica/Config/DataLoader.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/com/example/ProjetoAssistenciaJuridica/Config/DataLoader.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/java/com/example/ProjetoAssistenciaJuridica/Config/SecurityConfig.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/com/example/ProjetoAssistenciaJuridica/Config/SecurityConfig.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/java/com/example/ProjetoAssistenciaJuridica/controller/HomeController.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/com/example/ProjetoAssistenciaJuridica/controller/HomeController.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/java/com/example/ProjetoAssistenciaJuridica/controller/LoginController.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/com/example/ProjetoAssistenciaJuridica/controller/LoginController.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/java/com/example/ProjetoAssistenciaJuridica/controller/SolicitacaoController.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/com/example/ProjetoAssistenciaJuridica/controller/SolicitacaoController.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/java/com/example/ProjetoAssistenciaJuridica/model/Advogado.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/com/example/ProjetoAssistenciaJuridica/model/Advogado.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/java/com/example/ProjetoAssistenciaJuridica/model/Cliente.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/com/example/ProjetoAssistenciaJuridica/model/Cliente.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/java/com/example/ProjetoAssistenciaJuridica/model/Solicitacao.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/com/example/ProjetoAssistenciaJuridica/model/Solicitacao.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/java/com/example/ProjetoAssistenciaJuridica/repository/SolicitacaoRepository.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/com/example/ProjetoAssistenciaJuridica/repository/SolicitacaoRepository.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/java/com/example/ProjetoAssistenciaJuridica/service/SolicitacaoService.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/com/example/ProjetoAssistenciaJuridica/service/SolicitacaoService.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/resources/templates/advogado/historico_aceitas.html" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/resources/templates/advogado/historico_aceitas.html" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/resources/templates/advogado/listar_solicitacoes.html" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/resources/templates/advogado/listar_solicitacoes.html" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/resources/templates/cadastroadvogado.html" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/resources/templates/cadastroadvogado.html" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/resources/templates/cadastrocliente.html" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/resources/templates/cadastrocliente.html" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/resources/templates/cliente/historico_solicitacoes.html" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/resources/templates/cliente/historico_solicitacoes.html" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/resources/templates/cliente/nova_solicitacao.html" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/resources/templates/cliente/nova_solicitacao.html" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/resources/templates/home.html" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/resources/templates/home.html" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/target/classes/com/example/ProjetoAssistenciaJuridica/Config/DataLoader.class" beforeDir="false" afterPath="$PROJECT_DIR$/target/classes/com/example/ProjetoAssistenciaJuridica/Config/DataLoader.class" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/target/classes/com/example/ProjetoAssistenciaJuridica/Config/SecurityConfig.class" beforeDir="false" afterPath="$PROJECT_DIR$/target/classes/com/example/ProjetoAssistenciaJuridica/Config/SecurityConfig.class" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/target/classes/com/example/ProjetoAssistenciaJuridica/controller/HomeController.class" beforeDir="false" afterPath="$PROJECT_DIR$/target/classes/com/example/ProjetoAssistenciaJuridica/controller/HomeController.class" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/target/classes/com/example/ProjetoAssistenciaJuridica/controller/LoginController.class" beforeDir="false" afterPath="$PROJECT_DIR$/target/classes/com/example/ProjetoAssistenciaJuridica/controller/LoginController.class" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/target/classes/com/example/ProjetoAssistenciaJuridica/controller/SolicitacaoController.class" beforeDir="false" afterPath="$PROJECT_DIR$/target/classes/com/example/ProjetoAssistenciaJuridica/controller/SolicitacaoController.class" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/target/classes/com/example/ProjetoAssistenciaJuridica/model/Advogado.class" beforeDir="false" afterPath="$PROJECT_DIR$/target/classes/com/example/ProjetoAssistenciaJuridica/model/Advogado.class" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/target/classes/com/example/ProjetoAssistenciaJuridica/model/Cliente.class" beforeDir="false" afterPath="$PROJECT_DIR$/target/classes/com/example/ProjetoAssistenciaJuridica/model/Cliente.class" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/target/classes/templates/advogado/historico_aceitas.html" beforeDir="false" afterPath="$PROJECT_DIR$/target/classes/templates/advogado/historico_aceitas.html" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/target/classes/templates/advogado/listar_solicitacoes.html" beforeDir="false" afterPath="$PROJECT_DIR$/target/classes/templates/advogado/listar_solicitacoes.html" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/target/classes/templates/cadastroadvogado.html" beforeDir="false" afterPath="$PROJECT_DIR$/target/classes/templates/cadastroadvogado.html" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/target/classes/templates/cadastrocliente.html" beforeDir="false" afterPath="$PROJECT_DIR$/target/classes/templates/cadastrocliente.html" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/target/classes/templates/cliente/historico_solicitacoes.html" beforeDir="false" afterPath="$PROJECT_DIR$/target/classes/templates/cliente/historico_solicitacoes.html" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/target/classes/templates/home.html" beforeDir="false" afterPath="$PROJECT_DIR$/target/classes/templates/home.html" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/todo.md" beforeDir="false" />
+    </list>
+    <option name="SHOW_DIALOG" value="false" />
+    <option name="HIGHLIGHT_CONFLICTS" value="true" />
+    <option name="HIGHLIGHT_NON_ACTIVE_CHANGELIST" value="false" />
+    <option name="LAST_RESOLUTION" value="IGNORE" />
+  </component>
+  <component name="Git.Settings">
+    <option name="RECENT_GIT_ROOT_PATH" value="$PROJECT_DIR$" />
+  </component>
+  <component name="GitHubPullRequestSearchHistory">{
+  &quot;lastFilter&quot;: {
+    &quot;state&quot;: &quot;OPEN&quot;,
+    &quot;assignee&quot;: &quot;ElioRodrigues&quot;
+  }
+}</component>
+  <component name="GithubPullRequestsUISettings">{
+  &quot;selectedUrlAndAccountId&quot;: {
+    &quot;url&quot;: &quot;https://github.com/ElioRodrigues/AssistenciaJuridicaGratuita.git&quot;,
+    &quot;accountId&quot;: &quot;3379aea3-5224-4c7e-bfc0-1e15082a8d7a&quot;
+  }
+}</component>
+  <component name="ProjectColorInfo">{
+  &quot;customColor&quot;: &quot;&quot;,
+  &quot;associatedIndex&quot;: 6
+}</component>
+  <component name="ProjectId" id="2xdgtX5A538kv7doS9CgTTBf7xl" />
+  <component name="ProjectViewState">
+    <option name="hideEmptyMiddlePackages" value="true" />
+    <option name="showLibraryContents" value="true" />
+  </component>
+  <component name="PropertiesComponent">{
+  &quot;keyToString&quot;: {
+    &quot;Application.ProjetoAssistenciaJuridicaApplication.executor&quot;: &quot;Run&quot;,
+    &quot;ModuleVcsDetector.initialDetectionPerformed&quot;: &quot;true&quot;,
+    &quot;RunOnceActivity.ShowReadmeOnStart&quot;: &quot;true&quot;,
+    &quot;RunOnceActivity.git.unshallow&quot;: &quot;true&quot;,
+    &quot;git-widget-placeholder&quot;: &quot;main&quot;,
+    &quot;last_opened_file_path&quot;: &quot;/home/elio/Área de trabalho/AssistenciaJuridicaGratuita&quot;,
+    &quot;project.structure.last.edited&quot;: &quot;Project&quot;,
+    &quot;project.structure.proportion&quot;: &quot;0.0&quot;,
+    &quot;project.structure.side.proportion&quot;: &quot;0.0&quot;,
+    &quot;settings.editor.selected.configurable&quot;: &quot;preferences.lookFeel&quot;
+  }
+}</component>
+  <component name="RunManager">
+    <configuration default="true" type="JetRunConfigurationType">
+      <module name="AssistenciaJuridicaGratuita" />
+      <method v="2">
+        <option name="Make" enabled="true" />
+      </method>
+    </configuration>
+    <configuration default="true" type="KotlinStandaloneScriptRunConfigurationType">
+      <module name="AssistenciaJuridicaGratuita" />
+      <option name="filePath" />
+      <method v="2" />
+    </configuration>
+  </component>
+  <component name="TaskManager">
+    <task active="true" id="Default" summary="Default task">
+      <changelist id="f803d601-9da6-46eb-a3cd-f63ddea8ebd2" name="Changes" comment="" />
+      <created>1748273580657</created>
+      <option name="number" value="Default" />
+      <option name="presentableId" value="Default" />
+      <updated>1748273580657</updated>
+    </task>
+    <servers />
+  </component>
+</project>

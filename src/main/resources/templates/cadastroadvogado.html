@@ -13,41 +13,34 @@
 
 <div class="container mt-4">
   <h2>Cadastro de Advogado</h2>
-  <!-- Adiciona th:action e th:object para integração com Spring -->
   <form id="cadastroAdvogadoForm" th:action="@{/registrar/advogado}" th:object="${advogado}" method="post" class="needs-validation" novalidate>
     <div class="mb-3">
       <label for="nomeCompleto" class="form-label">Nome Completo</label>
-      <!-- Adiciona th:field -->
       <input type="text" class="form-control" id="nomeCompleto" th:field="*{nome}" required>
       <div class="invalid-feedback">Por favor, insira o nome completo.</div>
     </div>
 
     <div class="mb-3">
       <label for="cpf" class="form-label">CPF</label>
-      <!-- Adiciona th:field -->
       <input type="text" class="form-control" id="cpf" th:field="*{cpf}" required
              pattern="\d{3}\.\d{3}\.\d{3}-\d{2}">
       <div class="invalid-feedback">Formato inválido (XXX.XXX.XXX-XX)</div>
     </div>
 
-    <!-- Campo CEP adicionado -->
     <div class="mb-3">
       <label for="cep" class="form-label">CEP</label>
-      <!-- Adiciona th:field -->
       <input type="text" class="form-control" id="cep" th:field="*{cep}" required>
       <div class="invalid-feedback">Por favor, insira o CEP.</div>
     </div>
 
     <div class="mb-3">
       <label for="endereco" class="form-label">Endereço</label>
-      <!-- Adiciona th:field -->
       <input type="text" class="form-control" id="endereco" th:field="*{endereco}" required>
       <div class="invalid-feedback">Por favor, insira o endereço.</div>
     </div>
 
     <div class="mb-3">
       <label for="telefone" class="form-label">Telefone</label>
-      <!-- Adiciona th:field -->
       <input type="tel" class="form-control" id="telefone" th:field="*{telefone}" required
              pattern="\(\d{2}\) \d{5}-\d{4}">
       <div class="invalid-feedback">Formato inválido (XX) 9XXXX-XXXX</div>
@@ -55,23 +48,19 @@
 
     <div class="mb-3">
       <label for="email" class="form-label">E-mail</label>
-      <!-- Adiciona th:field -->
       <input type="email" class="form-control" id="email" th:field="*{email}" required>
       <div class="invalid-feedback">Por favor, insira um e-mail válido.</div>
     </div>
 
     <div class="mb-3">
       <label for="senha" class="form-label">Crie uma senha</label>
-      <!-- Adiciona th:field -->
       <input type="password" class="form-control" id="senha" th:field="*{senha}" required
              minlength="6">
       <div class="invalid-feedback">Mínimo 6 caracteres</div>
     </div>
 
-    <!-- Campo Gênero adicionado -->
     <div class="mb-3">
         <label for="genero" class="form-label">Gênero</label>
-        <!-- Adiciona th:field -->
         <select class="form-select" id="genero" th:field="*{genero}">
             <option value="" selected disabled>Selecione...</option>
             <option value="Masculino">Masculino</option>
@@ -82,10 +71,8 @@
         <div class="invalid-feedback">Por favor, selecione o gênero.</div>
     </div>
 
-    <!-- Campo Registro OAB adicionado -->
     <div class="mb-3">
       <label for="oab" class="form-label">Registro OAB</label>
-      <!-- Adiciona th:field -->
       <input type="text" class="form-control" id="oab" th:field="*{oab}" required>
       <div class="invalid-feedback">Por favor, insira o registro OAB.</div>
     </div>
@@ -96,7 +83,7 @@
   </form>
 </div>
 
-<!-- Script para máscara de CPF, Telefone e CEP (OAB pode precisar de ajuste) -->
+<!-- Validar os Scripts. -->
 <script>
   $(document).ready(function(){
     $("#cpf").inputmask("999.999.999-99");

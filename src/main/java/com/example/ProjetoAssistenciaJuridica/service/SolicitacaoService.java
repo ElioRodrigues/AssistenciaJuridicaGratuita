@@ -40,7 +40,7 @@ public class SolicitacaoService {
         return solicitacaoRepository.save(solicitacao);
     }
 
-    // Método para buscar o histórico de solicitações de um cliente
+    // Método para histórico do cliente
     public List<Solicitacao> buscarSolicitacoesPorCliente(String clienteEmail) {
         Cliente cliente = clientRepository.findByEmail(clienteEmail);
         if (cliente == null) {
@@ -78,17 +78,17 @@ public class SolicitacaoService {
         return solicitacaoRepository.save(solicitacao);
     }
 
-    // Método para buscar o histórico de solicitações aceitas por um advogado
+    // Método do histórico de solicitações aceitas do adv
     public List<Solicitacao> buscarSolicitacoesPorAdvogado(String advogadoEmail) {
         Advogado advogado = advogadoRepository.findByEmail(advogadoEmail);
         if (advogado == null) {
             throw new RuntimeException("Advogado não encontrado.");
         }
-        // Busca todas que ele aceitou (não apenas as EM_ANALISE, pode incluir CONCLUIDA, etc)
+        // histórico de todas as solicitações relacionadas
         return solicitacaoRepository.findByAdvogadoOrderByDataAceiteDesc(advogado);
     }
 
-    // Método auxiliar para obter o email do usuário logado
+    // Método auxiliar para obter o email do usuário logado (???)
     public String getCurrentUserEmail() {
         Authentication authentication = SecurityContextHolder.getContext().getAuthentication();
         if (authentication == null || !authentication.isAuthenticated()) {
@@ -98,7 +98,7 @@ public class SolicitacaoService {
         if (principal instanceof UserDetails) {
             return ((UserDetails) principal).getUsername(); // Username é o email
         } else {
-            return principal.toString(); // Caso não seja UserDetails
+            return principal.toString(); // ??
         }
     }
 }

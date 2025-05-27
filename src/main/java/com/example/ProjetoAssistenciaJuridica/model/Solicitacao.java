@@ -14,7 +14,7 @@ public class Solicitacao {
     private String tema;
 
     @Column(nullable = false)
-    private String categoria; // Ex: Criminal, Trabalhista, Cível, etc.
+    private String categoria; // Ex: Criminal, Trabalhista, Cívil, etc.
 
     @Lob // Para textos mais longos
     @Column(nullable = false, columnDefinition = "TEXT")
@@ -22,7 +22,7 @@ public class Solicitacao {
 
     @Enumerated(EnumType.STRING)
     @Column(nullable = false)
-    private StatusSolicitacao status = StatusSolicitacao.ABERTA; // Status inicial
+    private StatusSolicitacao status = StatusSolicitacao.ABERTA; // status inicial
 
     @ManyToOne(fetch = FetchType.LAZY)
     @JoinColumn(name = "cliente_id", nullable = false)
@@ -37,7 +37,7 @@ public class Solicitacao {
 
     private LocalDateTime dataAceite;
 
-    // Getters e Setters
+    // G&S
 
     public Long getId() {
         return id;

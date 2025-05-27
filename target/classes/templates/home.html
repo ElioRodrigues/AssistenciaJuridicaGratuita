@@ -8,7 +8,6 @@
     <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.2/dist/css/bootstrap.min.css" rel="stylesheet">
 </head>
 <body>
-<!-- Navbar Inclusa (pode ser um fragmento Thymeleaf) -->
 <nav class="navbar navbar-expand-lg bg-body-tertiary">
     <div class="container-fluid">
         <a class="navbar-brand" href="/">Assistência Jurídica</a>
@@ -20,15 +19,23 @@
                 <li class="nav-item">
                     <a class="nav-link" href="/">Home</a>
                 </li>
-                <!-- Links específicos por role podem ser adicionados aqui ou no corpo -->
+                <!-- Ver se precisa por uma Dashboard-->
+                <!--<li class="nav-item" sec:authorize="hasRole(\'CLIENTE\')">
+                    <a class="nav-link" th:href="@{/cliente/dashboard}">Meu Painel</a>
+                </li>
+                 <li class="nav-item" sec:authorize="hasRole(\'ADVOGADO\')">
+                    <a class="nav-link" th:href="@{/advogado/dashboard}">Meu Painel</a>
+                </li>
+                 <li class="nav-item" sec:authorize="hasRole(\'ADMIN\')">
+                    <a class="nav-link" th:href="@{/admin/dashboard}">Painel Admin</a>
+                </li>-->
             </ul>
             <ul class="navbar-nav">
                 <li class="nav-item dropdown" sec:authorize="isAuthenticated()">
                     <a class="nav-link dropdown-toggle" href="#" role="button" data-bs-toggle="dropdown">
-                        <span sec:authentication="name"></span> (<span sec:authentication="principal.authorities[0]"></span>)
+                        <span sec:authentication="name"></span>
                     </a>
                     <ul class="dropdown-menu dropdown-menu-end">
-                        <!-- Opções de perfil podem ser adicionadas aqui -->
                         <li>
                             <form th:action="@{/logout}" method="post">
                                 <button type="submit" class="dropdown-item">Sair</button>
@@ -46,65 +53,36 @@
 
 <div class="container mt-4">
 
-    <!-- Conteúdo para Usuários Não Autenticados -->
-    <div sec:authorize="!isAuthenticated()">
-        <h1>Bem-vindo ao Sistema de Assistência Jurídica Gratuita</h1>
-        <p class="lead">Conectamos cidadãos que precisam de auxílio legal com advogados voluntários dispostos a ajudar.</p>
-        <hr>
-        <p>Se você precisa de assistência jurídica, cadastre-se como cliente para descrever seu caso.</p>
-        <p>Se você é advogado e deseja oferecer seus serviços voluntariamente, cadastre-se como advogado.</p>
-        <div class="row mt-4">
-            <div class="col-md-6 mb-3">
-                <div class="card text-center">
-                    <div class="card-body">
-                        <h5 class="card-title">Sou Cliente</h5>
-                        <p class="card-text">Preciso de ajuda jurídica.</p>
-                        <a href="/registrar/cliente" class="btn btn-primary">Cadastrar como Cliente</a>
-                    </div>
-                </div>
-            </div>
-            <div class="col-md-6 mb-3">
-                <div class="card text-center">
-                    <div class="card-body">
-                        <h5 class="card-title">Sou Advogado</h5>
-                        <p class="card-text">Quero oferecer ajuda voluntária.</p>
-                        <a href="/registrar/advogado" class="btn btn-success">Cadastrar como Advogado</a>
-                    </div>
+    <h1>Bem-vindo ao Sistema de Assistência Jurídica Gratuita</h1>
+    <!-- Trocar esse texto podre de introdução ao sistema.-->
+    <p class="lead">Conectamos cidadãos que precisam de auxílio legal com advogados voluntários dispostos a ajudar.</p>
+    <hr>
+    <p>Se você precisa de assistência jurídica, cadastre-se como cliente para descrever seu caso.</p>
+    <p>Se você é advogado e deseja oferecer seus serviços voluntariamente, cadastre-se como advogado.</p>
+    <div class="row mt-4">
+        <div class="col-md-6 mb-3">
+            <div class="card text-center">
+                <div class="card-body">
+                    <h5 class="card-title">Sou Cliente</h5>
+                    <p class="card-text">Preciso de ajuda jurídica.</p>
+                    <a href="/registrar/cliente" class="btn btn-primary">Cadastrar como Cliente</a>
                 </div>
             </div>
         </div>
-    </div>
-
-    <!-- Conteúdo para Clientes Autenticados -->
-    <div sec:authorize="hasRole('CLIENTE')">
-        <h2>Painel do Cliente</h2>
-        <p>Bem-vindo(a), <span sec:authentication="principal.nome">Nome do Cliente</span>!</p>
-        <div class="list-group">
-            <a href="/cliente/solicitacao/nova" class="list-group-item list-group-item-action">Criar Nova Solicitação de Assistência</a>
-            <a href="/cliente/solicitacoes/historico" class="list-group-item list-group-item-action">Meu Histórico de Solicitações</a>
+        <div class="col-md-6 mb-3">
+            <div class="card text-center">
+                <div class="card-body">
+                    <h5 class="card-title">Sou Advogado</h5>
+                    <p class="card-text">Quero oferecer ajuda voluntária.</p>
+                    <a href="/registrar/advogado" class="btn btn-success">Cadastrar como Advogado</a>
+                </div>
+            </div>
         </div>
     </div>
-
-    <!-- Conteúdo para Advogados Autenticados -->
-    <div sec:authorize="hasRole('ADVOGADO')">
-        <h2>Painel do Advogado</h2>
-        <p>Bem-vindo(a), Dr(a). <span sec:authentication="principal.nome">Nome do Advogado</span>!</p>
-        <div class="list-group">
-            <a href="/advogado/solicitacoes/listar" class="list-group-item list-group-item-action">Listar Todas as Solicitações Abertas</a>
-            <a href="/advogado/solicitacoes/aceitas" class="list-group-item list-group-item-action">Meu Histórico de Solicitações Aceitas</a>
-        </div>
-    </div>
-
-     <!-- Conteúdo para Admin Autenticado (Exemplo) -->
-     <div sec:authorize="hasRole('ADMIN')">
-         <h2>Painel do Administrador</h2>
-         <p>Bem-vindo(a), Administrador!</p>
-         <!-- Adicionar links/funcionalidades específicas do admin -->
-         <p>Área administrativa em desenvolvimento.</p>
-     </div>
 
 </div>
 
 <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.2/dist/js/bootstrap.bundle.min.js"></script>
 </body>
 </html>
+

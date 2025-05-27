@@ -1,7 +1,4 @@
 package com.example.ProjetoAssistenciaJuridica.controller;
-
-// import com.example.ProjetoAssistenciaJuridica.model.Advogado; // Import não utilizado removido
-// import com.example.ProjetoAssistenciaJuridica.model.Cliente; // Import não utilizado removido
 import com.example.ProjetoAssistenciaJuridica.model.Solicitacao;
 import com.example.ProjetoAssistenciaJuridica.service.SolicitacaoService;
 import com.example.ProjetoAssistenciaJuridica.service.UserService;
@@ -25,22 +22,20 @@ public class SolicitacaoController {
     private SolicitacaoService solicitacaoService;
 
     @Autowired
-    private UserService userService; // Para buscar detalhes do usuário logado
+    private UserService userService;
 
-    // Lista de categorias pré-definidas
     private final List<String> categoriasJuridicas = Arrays.asList(
         "Direito Civil", "Direito Penal", "Direito Trabalhista", "Direito do Consumidor",
         "Direito de Família", "Direito Empresarial", "Direito Tributário", "Outros"
     );
 
-    // --- Rotas para Clientes ---
 
     @GetMapping("/cliente/solicitacao/nova")
     @PreAuthorize("hasRole(\'CLIENTE\')")
     public String showNovaSolicitacaoForm(Model model) {
         model.addAttribute("solicitacao", new Solicitacao());
         model.addAttribute("categorias", categoriasJuridicas);
-        return "cliente/nova_solicitacao"; // Template para criar nova solicitação
+        return "cliente/nova_solicitacao";
     }
 
     @PostMapping("/cliente/solicitacao/nova")
@@ -57,9 +52,9 @@ public class SolicitacaoController {
 
         try {
             UserDetails userDetails = (UserDetails) authentication.getPrincipal();
-            solicitacaoService.criarNovaSolicitacao(solicitacao, userDetails.getUsername()); // Passa o email do cliente
+            solicitacaoService.criarNovaSolicitacao(solicitacao, userDetails.getUsername());
             redirectAttributes.addFlashAttribute("sucesso", "Solicitação criada com sucesso!");
-            return "redirect:/cliente/solicitacoes/historico"; // Redireciona para o histórico
+            return "redirect:/cliente/solicitacoes/historico";
         } catch (Exception e) {
             model.addAttribute("categorias", categoriasJuridicas);
             model.addAttribute("erro", "Erro ao criar solicitação: " + e.getMessage());
@@ -73,17 +68,16 @@ public class SolicitacaoController {
         UserDetails userDetails = (UserDetails) authentication.getPrincipal();
         List<Solicitacao> solicitacoes = solicitacaoService.buscarSolicitacoesPorCliente(userDetails.getUsername());
         model.addAttribute("solicitacoes", solicitacoes);
-        return "cliente/historico_solicitacoes"; // Template para histórico do cliente
+        return "cliente/historico_solicitacoes";
     }
 
-    // --- Rotas para Advogados ---
 
     @GetMapping("/advogado/solicitacoes/listar")
     @PreAuthorize("hasRole(\'ADVOGADO\')")
     public String showListarSolicitacoesAbertas(Model model) {
         List<Solicitacao> solicitacoes = solicitacaoService.buscarSolicitacoesAbertas();
         model.addAttribute("solicitacoes", solicitacoes);
-        return "advogado/listar_solicitacoes"; // Template para listar solicitações abertas
+        return "advogado/listar_solicitacoes";
     }
 
     @PostMapping("/advogado/solicitacao/assumir/{id}")
@@ -95,10 +89,10 @@ public class SolicitacaoController {
             UserDetails userDetails = (UserDetails) authentication.getPrincipal();
             solicitacaoService.advogadoAssumirSolicitacao(id, userDetails.getUsername());
             redirectAttributes.addFlashAttribute("sucesso", "Solicitação assumida com sucesso!");
-            return "redirect:/advogado/solicitacoes/aceitas"; // Redireciona para o histórico do advogado
+            return "redirect:/advogado/solicitacoes/aceitas";
         } catch (Exception e) {
             redirectAttributes.addFlashAttribute("erro", "Erro ao assumir solicitação: " + e.getMessage());
-            return "redirect:/advogado/solicitacoes/listar"; // Volta para a lista
+            return "redirect:/advogado/solicitacoes/listar";
         }
     }
 
@@ -108,7 +102,7 @@ public class SolicitacaoController {
         UserDetails userDetails = (UserDetails) authentication.getPrincipal();
         List<Solicitacao> solicitacoes = solicitacaoService.buscarSolicitacoesPorAdvogado(userDetails.getUsername());
         model.addAttribute("solicitacoes", solicitacoes);
-        return "advogado/historico_aceitas"; // Template para histórico do advogado
+        return "advogado/historico_aceitas";
     }
 }
 
