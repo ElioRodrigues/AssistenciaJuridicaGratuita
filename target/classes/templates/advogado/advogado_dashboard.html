@@ -1,0 +1,22 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org" lang="pt-br">
+<head>
+    <meta charset="UTF-8">
+    <title>Dashboard do Advogado</title>
+    <!-- Adicione links para CSS se desejar -->
+</head>
+<body>
+<h1>Bem-vindo(a ), Advogado(a)!</h1>
+<p>O que você gostaria de fazer?</p>
+<ul>
+    <!-- Link para a rota existente de listar solicitações -->
+    <li><a th:href="@{/advogado/solicitacoes/listar}">Visualizar Solicitações Abertas</a></li>
+    <!-- Link para a rota existente de histórico do advogado -->
+    <li><a th:href="@{/advogado/solicitacoes/aceitas}">Visualizar Meu Histórico de Solicitações</a></li>
+</ul>
+<!-- Formulário de Logout -->
+<form th:action="@{/logout}" method="post" style="margin-top: 20px;">
+    <button type="submit">Sair</button>
+</form>
+</body>
+</html>

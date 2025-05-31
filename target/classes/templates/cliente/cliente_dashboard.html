@@ -1,0 +1,22 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org" lang="pt-br">
+<head>
+    <meta charset="UTF-8">
+    <title>Dashboard do Cliente</title>
+    <!-- Adicione links para CSS se desejar -->
+</head>
+<body>
+<h1>Bem-vindo(a ), Cliente!</h1>
+<p>O que você gostaria de fazer?</p>
+<ul>
+    <!-- Link para a rota existente de nova solicitação -->
+    <li><a th:href="@{/cliente/solicitacao/nova}">Cadastrar Nova Solicitação</a></li>
+    <!-- Link para a rota existente de histórico -->
+    <li><a th:href="@{/cliente/solicitacoes/historico}">Visualizar Histórico de Solicitações</a></li>
+</ul>
+<!-- Formulário de Logout -->
+<form th:action="@{/logout}" method="post" style="margin-top: 20px;">
+    <button type="submit">Sair</button>
+</form>
+</body>
+</html>
