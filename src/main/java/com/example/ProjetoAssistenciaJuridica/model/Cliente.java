@@ -148,5 +148,8 @@ public class Cliente implements UserDetails {
     public void setSenha(String senha) {
         this.senha = senha;
     }
+
+    public String getSenha() { return this.senha;}
+
 }
 

@@ -13,7 +13,7 @@ import org.springframework.stereotype.Component;
 import java.io.IOException;
 import java.util.Collection;
 
-@Component // Registra como um Bean gerenciado pelo Spring
+@Component
 public class CustomAuthenticationSuccessHandler implements AuthenticationSuccessHandler {
 
     private RedirectStrategy redirectStrategy = new DefaultRedirectStrategy( );
@@ -30,7 +30,7 @@ public class CustomAuthenticationSuccessHandler implements AuthenticationSuccess
         }
 
         redirectStrategy.sendRedirect(request, response, targetUrl);
-        clearAuthenticationAttributes(request); // Opcional: Limpa atributos da sessão
+        clearAuthenticationAttributes(request);
     }
 
     protected String determineTargetUrl(Authentication authentication) {
@@ -39,18 +39,17 @@ public class CustomAuthenticationSuccessHandler implements AuthenticationSuccess
         for (GrantedAuthority grantedAuthority : authorities) {
             // Verifica as roles e define a URL de destino
             if (grantedAuthority.getAuthority().equals("ROLE_ADMIN")) {
-                return "/admin/dashboard"; // Redireciona Admin
+                return "/admin/dashboard";
             } else if (grantedAuthority.getAuthority().equals("ROLE_ADVOGADO")) {
-                return "/advogado/dashboard"; // Redireciona Advogado
+                return "/advogado/dashboard";
             } else if (grantedAuthority.getAuthority().equals("ROLE_CLIENTE")) {
-                return "/cliente/dashboard"; // Redireciona Cliente
+                return "/cliente/dashboard";
             }
         }
-        // Fallback caso não encontre role conhecida
+
         return "/home";
     }
 
-    // Opcional: Limpa atributos da sessão
     protected void clearAuthenticationAttributes(HttpServletRequest request) {
         jakarta.servlet.http.HttpSession session = request.getSession(false );
         if (session == null) {

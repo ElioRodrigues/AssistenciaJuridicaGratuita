@@ -27,7 +27,7 @@ public class LoginController {
         }
         // Flag para erro de login
         if (model.containsAttribute("cadastroErro")) {
-             model.addAttribute("cadastroErro", model.getAttribute("cadastroErro"));
+            model.addAttribute("cadastroErro", model.getAttribute("cadastroErro"));
         }
         return "login";
     }
@@ -77,4 +77,3 @@ public class LoginController {
         }
     }
 }
-

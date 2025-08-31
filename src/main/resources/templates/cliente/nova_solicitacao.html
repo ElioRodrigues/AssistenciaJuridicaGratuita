@@ -15,18 +15,12 @@
 
     <form th:action="@{/cliente/solicitacao/nova}" th:object="${solicitacao}" method="post" class="needs-validation" novalidate>
         <div class="mb-3">
-            <label for="tema" class="form-label">Tema/Assunto Principal</label>
-            <input type="text" class="form-control" id="tema" th:field="*{tema}" required>
-            <div class="invalid-feedback">Por favor, informe o tema da solicitação.</div>
-        </div>
-
-        <div class="mb-3">
-            <label for="categoria" class="form-label">Categoria Jurídica</label>
-            <select class="form-select" id="categoria" th:field="*{categoria}" required>
+            <label for="area" class="form-label">Área de Atuação</label>
+            <select class="form-select" id="area" th:field="*{area}" required>
                 <option value="" selected disabled>Selecione a área...</option>
-                <option th:each="cat : ${categorias}" th:value="${cat}" th:text="${cat}"></option>
+                <option th:each="areaOpt : ${areas}" th:value="${areaOpt.id}" th:text="${areaOpt.nome}"></option>
             </select>
-            <div class="invalid-feedback">Por favor, selecione uma categoria.</div>
+            <div class="invalid-feedback">Por favor, selecione a área de atuação.</div>
         </div>
 
         <div class="mb-3">

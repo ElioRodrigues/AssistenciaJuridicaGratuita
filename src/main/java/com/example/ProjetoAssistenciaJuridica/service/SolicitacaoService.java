@@ -36,18 +36,14 @@ public class SolicitacaoService {
         }
         solicitacao.setCliente(cliente);
         solicitacao.setStatus(StatusSolicitacao.ABERTA);
-        solicitacao.setDataCriacao(LocalDateTime.now());
+
+        if (solicitacao.getArea() == null ) {
+            throw new RuntimeException("A área de atuação da solicitação não foi definida.");
+        }
+
         return solicitacaoRepository.save(solicitacao);
     }
 
-    // Método para histórico do cliente
-    public List<Solicitacao> buscarSolicitacoesPorCliente(String clienteEmail) {
-        Cliente cliente = clientRepository.findByEmail(clienteEmail);
-        if (cliente == null) {
-            throw new RuntimeException("Cliente não encontrado.");
-        }
-        return solicitacaoRepository.findByClienteOrderByDataCriacaoDesc(cliente);
-    }
 
     // Método para buscar todas as solicitações abertas (para advogados)
     public List<Solicitacao> buscarSolicitacoesAbertas() {
@@ -84,9 +80,19 @@ public class SolicitacaoService {
         if (advogado == null) {
             throw new RuntimeException("Advogado não encontrado.");
         }
-        // histórico de todas as solicitações relacionadas
         return solicitacaoRepository.findByAdvogadoOrderByDataAceiteDesc(advogado);
     }
+
+    // Método para histórico do cliente
+    public List<Solicitacao> buscarSolicitacoesPorCliente(String clienteEmail) {
+        Cliente cliente = clientRepository.findByEmail(clienteEmail);
+        if (cliente == null) {
+            throw new RuntimeException("Cliente com email " + clienteEmail + " não encontrado.");
+        }
+        // Assumindo que você tem um método findByClienteOrderByDataCriacaoDesc no seu SolicitacaoRepository
+        return solicitacaoRepository.findByClienteOrderByDataCriacaoDesc(cliente);
+    }
+
 
     // Método auxiliar para obter o email do usuário logado (???)
     public String getCurrentUserEmail() {
@@ -101,5 +107,7 @@ public class SolicitacaoService {
             return principal.toString(); // ??
         }
     }
+
+
 }
 

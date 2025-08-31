@@ -1,21 +1,21 @@
 package com.example.ProjetoAssistenciaJuridica.Config;
 
-import org.springframework.beans.factory.annotation.Autowired; // <-- ADICIONAR SE NÃO EXISTIR
+import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
-import org.springframework.security.config.annotation.method.configuration.EnableMethodSecurity; // <-- ADICIONAR
+import org.springframework.security.config.annotation.method.configuration.EnableMethodSecurity;
 import org.springframework.security.config.annotation.web.builders.HttpSecurity;
 import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
 import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.security.web.SecurityFilterChain;
-import org.springframework.security.web.authentication.AuthenticationSuccessHandler; // <-- ADICIONAR SE NÃO EXISTIR
+import org.springframework.security.web.authentication.AuthenticationSuccessHandler;
 import org.springframework.security.web.util.matcher.AntPathRequestMatcher;
 
 
 @Configuration
 @EnableMethodSecurity
 public class SecurityConfig {
-    @Autowired // <-- ADICIONAR ESTA LINHA (injeta o handler criado no Passo 1)
+    @Autowired
     private AuthenticationSuccessHandler customAuthenticationSuccessHandler;
     @Bean
     public SecurityFilterChain securityFilterChain(HttpSecurity http ) throws Exception {
@@ -35,7 +35,7 @@ public class SecurityConfig {
                         .usernameParameter("email")
                         .passwordParameter("senha")
                         //.defaultSuccessUrl("/", true)
-                        .successHandler(customAuthenticationSuccessHandler) // <-- ADICIONAR ESTA LINHA (usa o handler)
+                        .successHandler(customAuthenticationSuccessHandler)
                         .permitAll()
                 )
                 .logout(logout -> logout

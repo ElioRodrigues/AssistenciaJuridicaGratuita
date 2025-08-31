@@ -10,13 +10,8 @@ public class Solicitacao {
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long id;
 
-    @Column(nullable = false)
-    private String tema;
 
-    @Column(nullable = false)
-    private String categoria; // Ex: Criminal, Trabalhista, Cívil, etc.
 
-    @Lob // Para textos mais longos
     @Column(nullable = false, columnDefinition = "TEXT")
     private String descricao;
 
@@ -29,15 +24,20 @@ public class Solicitacao {
     private Cliente cliente;
 
     @ManyToOne(fetch = FetchType.LAZY)
-    @JoinColumn(name = "advogado_id", nullable = true) // Advogado pode ser nulo inicialmente
+    @JoinColumn(name = "advogado_id", nullable = true)  // mantendo advogado nulo inicialmente
     private Advogado advogado;
+
+
+    @ManyToOne(fetch = FetchType.LAZY)
+    @JoinColumn(name = "area_id", nullable = false)
+    private AreaAtuacao area;
 
     @Column(nullable = false, updatable = false)
     private LocalDateTime dataCriacao = LocalDateTime.now();
 
     private LocalDateTime dataAceite;
 
-    // G&S
+    // G & S
 
     public Long getId() {
         return id;
@@ -45,22 +45,6 @@ public class Solicitacao {
 
     public void setId(Long id) {
         this.id = id;
-    }
-
-    public String getTema() {
-        return tema;
-    }
-
-    public void setTema(String tema) {
-        this.tema = tema;
-    }
-
-    public String getCategoria() {
-        return categoria;
-    }
-
-    public void setCategoria(String categoria) {
-        this.categoria = categoria;
     }
 
     public String getDescricao() {
@@ -95,12 +79,16 @@ public class Solicitacao {
         this.advogado = advogado;
     }
 
-    public LocalDateTime getDataCriacao() {
-        return dataCriacao;
+    public AreaAtuacao getArea() {
+        return area;
     }
 
-    public void setDataCriacao(LocalDateTime dataCriacao) {
-        this.dataCriacao = dataCriacao;
+    public void setArea(AreaAtuacao area) {
+        this.area = area;
+    }
+
+    public LocalDateTime getDataCriacao() {
+        return dataCriacao;
     }
 
     public LocalDateTime getDataAceite() {
@@ -111,4 +99,3 @@ public class Solicitacao {
         this.dataAceite = dataAceite;
     }
 }
-
