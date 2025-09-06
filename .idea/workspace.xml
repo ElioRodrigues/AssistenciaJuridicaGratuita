@@ -5,7 +5,21 @@
   </component>
   <component name="ChangeListManager">
     <list default="true" id="f803d601-9da6-46eb-a3cd-f63ddea8ebd2" name="Changes" comment="">
-      <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/src/main/resources/static/img/hero.png" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/src/main/resources/static/img/icon-administrativo.png" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/src/main/resources/static/img/icon-civil.png" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/src/main/resources/static/img/icon-criminal.png" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/src/main/resources/static/img/icon-digital.png" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/src/main/resources/static/img/icon-empresarial.png" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/src/main/resources/static/img/icon-previdenciario.png" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/src/main/resources/static/img/icon-trabalhista.png" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/src/main/resources/static/img/icon-tributario.png" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/src/main/resources/static/img/logo.png" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/src/main/resources/static/img/man.png" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/src/main/resources/static/img/notes.png" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/src/main/resources/static/img/vetor.png" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/resources/static/css/style.css" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/resources/static/css/style.css" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/resources/static/js/app.js" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/resources/static/js/app.js" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/src/main/resources/templates/home.html" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/resources/templates/home.html" afterDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
@@ -30,12 +44,12 @@
     &quot;assignee&quot;: &quot;ElioRodrigues&quot;
   }
 }</component>
-  <component name="GithubPullRequestsUISettings"><![CDATA[{
-  "selectedUrlAndAccountId": {
-    "url": "git@github.com:ElioRodrigues/AssistenciaJuridicaGratuita.git",
-    "accountId": "3379aea3-5224-4c7e-bfc0-1e15082a8d7a"
+  <component name="GithubPullRequestsUISettings">{
+  &quot;selectedUrlAndAccountId&quot;: {
+    &quot;url&quot;: &quot;git@github.com:ElioRodrigues/AssistenciaJuridicaGratuita.git&quot;,
+    &quot;accountId&quot;: &quot;3379aea3-5224-4c7e-bfc0-1e15082a8d7a&quot;
   }
-}]]></component>
+}</component>
   <component name="ProjectColorInfo">{
   &quot;customColor&quot;: &quot;&quot;,
   &quot;associatedIndex&quot;: 6
