@@ -1,0 +1,9 @@
+:root{
+  --blue-900:#004D99;
+  --blue-600:#1A75FF;
+  --yellow-500:#FFAA33;
+  --gray-50:#F9FAFB; --gray-100:#F2F2F2;
+  --gray-500:#5A6A7A; --gray-800:#2E3A46;
+  --radius-lg:16px; --radius-md:12px; --radius-sm:10px;
+  --shadow:0 6px 18px rgba(0,0,0,.08);
+}
