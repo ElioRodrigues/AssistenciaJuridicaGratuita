@@ -5,21 +5,9 @@
   </component>
   <component name="ChangeListManager">
     <list default="true" id="f803d601-9da6-46eb-a3cd-f63ddea8ebd2" name="Changes" comment="">
-      <change afterPath="$PROJECT_DIR$/src/main/resources/static/img/hero.png" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/src/main/resources/static/img/icon-administrativo.png" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/src/main/resources/static/img/icon-civil.png" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/src/main/resources/static/img/icon-criminal.png" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/src/main/resources/static/img/icon-digital.png" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/src/main/resources/static/img/icon-empresarial.png" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/src/main/resources/static/img/icon-previdenciario.png" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/src/main/resources/static/img/icon-trabalhista.png" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/src/main/resources/static/img/icon-tributario.png" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/src/main/resources/static/img/logo.png" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/src/main/resources/static/img/man.png" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/src/main/resources/static/img/notes.png" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/src/main/resources/static/img/vetor.png" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/resources/static/css/style.css" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/resources/static/css/style.css" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/resources/static/js/app.js" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/resources/static/js/app.js" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/.idea/misc.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/misc.xml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/resources/application.properties" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/resources/application.properties" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/src/main/resources/templates/home.html" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/resources/templates/home.html" afterDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
@@ -78,6 +66,11 @@
     &quot;settings.editor.selected.configurable&quot;: &quot;preferences.lookFeel&quot;
   }
 }</component>
+  <component name="RecentsManager">
+    <key name="MoveFile.RECENT_KEYS">
+      <recent name="$PROJECT_DIR$/src/main/resources/templates" />
+    </key>
+  </component>
   <component name="RunManager">
     <configuration name="Run" type="Application" factoryName="Application">
       <option name="MAIN_CLASS_NAME" value="com.example.ProjetoAssistenciaJuridica.ProjetoAssistenciaJuridicaApplication" />
