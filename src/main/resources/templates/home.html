@@ -1,5 +1,6 @@
 <!DOCTYPE html>
-<html lang="pt-br" xmlns:th="http://www.thymeleaf.org">
+<html lang="pt-br" xmlns:th="http://www.thymeleaf.org"
+      xmlns:sec="https://www.thymeleaf.org/extras/spring-security">
 <head>
   <meta charset="UTF-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1" />
@@ -40,10 +41,19 @@
         <div class="hero-copy">
           <h1>Precisa de Assistência<br>Jurídica?<br><span class="nowrap">Comece por aqui.</span></h1>
           <p class="lead">Atendimento gratuito por advogados voluntários, de forma simples e segura.</p>
-          <div class="hero-actions">
-            <a class="btn btn-primary" th:href="@{/atendimento}">Iniciar atendimento</a>
-            <a class="btn btn-outline" th:href="@{/voluntarios}">Quero ser voluntário</a>
-          </div>
+            <div class="hero-actions">
+                <!-- sem login -> vai para cadastro do cliente -->
+                <a class="btn btn-primary"
+                   th:href="@{/cliente/cadastro}"
+                   sec:authorize="!isAuthenticated()">Iniciar atendimento</a>
+
+                <!-- logado -> vai para a página de registrar (abrir caso) -->
+                <a class="btn btn-primary"
+                   th:href="@{/registrar}"
+                   sec:authorize="isAuthenticated()">Iniciar atendimento</a>
+
+                <a class="btn btn-outline" th:href="@{/voluntarios}">Quero ser voluntário</a>
+            </div>
         </div>
         <div class="hero-art">
           <img th:src="@{/img/hero.png}" alt="Ilustração de pessoa lendo um documento" />

@@ -11,30 +11,38 @@ import org.springframework.security.web.SecurityFilterChain;
 import org.springframework.security.web.authentication.AuthenticationSuccessHandler;
 import org.springframework.security.web.util.matcher.AntPathRequestMatcher;
 
-
 @Configuration
 @EnableMethodSecurity
 public class SecurityConfig {
+
     @Autowired
     private AuthenticationSuccessHandler customAuthenticationSuccessHandler;
-    @Bean
-    public SecurityFilterChain securityFilterChain(HttpSecurity http ) throws Exception {
-        http
-                .authorizeHttpRequests(authorize -> authorize
-                        // Permite acesso público a estas URLs
-                        .requestMatchers("/", "/home", "/entrar", "/login",
-                                "/registrar", "/cadastrocliente", "/cadastroadvogado",
-                                "/css/**", "/js/**", "/images/**", "/webjars/**" )
-                        .permitAll()
 
-                        .anyRequest().permitAll()
+    @Bean
+    public SecurityFilterChain securityFilterChain(HttpSecurity http) throws Exception {
+        http
+                .authorizeHttpRequests(auth -> auth
+                        // Páginas públicas
+                        .requestMatchers(
+                                "/", "/index", "/home",
+                                "/entrar", "/login",                 // página e endpoint de login
+                                "/registrar",                        // abertura de caso (pode deixar auth se quiser)
+                                "/cliente/cadastro", "/cliente/cadastrar", "/cadastrocliente", "/cliente/cadastrocliente",
+                                "/advogado/cadastrar", "/cadastroadvogado",
+                                "/termos", "/privacidade"
+                        ).permitAll()
+                        // Recursos estáticos
+                        .requestMatchers(
+                                "/css/**", "/js/**", "/img/**", "/svg/**", "/webjars/**"
+                        ).permitAll()
+                        // Demais rotas precisam de autenticação
+                        .anyRequest().authenticated()
                 )
                 .formLogin(form -> form
                         .loginPage("/entrar")
                         .loginProcessingUrl("/login")
                         .usernameParameter("email")
                         .passwordParameter("senha")
-                        //.defaultSuccessUrl("/", true)
                         .successHandler(customAuthenticationSuccessHandler)
                         .permitAll()
                 )
@@ -43,12 +51,14 @@ public class SecurityConfig {
                         .logoutSuccessUrl("/entrar?logout")
                         .permitAll()
                 );
-        return http.build( );
+
+        // Se for usar H2-console algum dia:
+        // http.headers(headers -> headers.frameOptions(frame -> frame.disable()))
+        //   .csrf(csrf -> csrf.ignoringRequestMatchers(new AntPathRequestMatcher("/h2-console/**")));
+
+        return http.build();
     }
 
     @Bean
-    public PasswordEncoder passwordEncoder() {
-        return new BCryptPasswordEncoder();
-    }
+    public PasswordEncoder passwordEncoder() { return new BCryptPasswordEncoder(); }
 }
-

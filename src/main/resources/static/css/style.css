@@ -110,3 +110,77 @@ body{
   .areas-grid{grid-template-columns:1fr 1fr}
   .search-form{grid-template-columns:1fr}
 }
+
+
+/* ====== PÁGINAS DE FORMULÁRIO ====== */
+.page-header h1{
+  margin: 0 0 8px;
+  font-size: clamp(28px, 4.2vw, 40px);
+}
+.page-header .lead{
+  margin: 0 0 18px;
+  color: var(--gray-500);
+}
+
+/* Card do formulário */
+.form-card{
+  border: 2px solid #cfd8ea;
+  border-radius: var(--radius-lg);
+  background: #fff;
+  padding: 24px;
+  box-shadow: 0 2px 0 #eaf0ff inset, var(--shadow);
+}
+
+/* Grid responsivo do formulário */
+.form{display:block}
+.form-grid{
+  display: grid;
+  grid-template-columns: repeat(2, 1fr);
+  gap: 14px 16px;
+  margin-bottom: 10px;
+}
+.form-grid .col-span-2{ grid-column: span 2; }
+.form-uf{ max-width: 90px; }
+
+/* Títulos das seções dentro do card */
+.fieldset-title{
+  font-size: 20px;
+  margin: 16px 0 10px;
+}
+
+/* Grupos de campo */
+.form-group{ display:flex; flex-direction:column; }
+.form-group label{ font-weight:600; margin: 0 0 6px; }
+.req{ color: #c00; }
+
+/* Inputs */
+.input{
+  border: 1px solid #cfd8ea;
+  background: #f2f4f8;
+  border-radius: var(--radius-md);
+  padding: 12px 14px;
+  font: inherit;
+}
+.input:focus{ outline: 3px solid rgba(26,117,255,.18); background:#fff; }
+
+/* Mensagens de erro do Thymeleaf */
+.invalid{
+  color:#c00; font-size:12px; margin:6px 0 0;
+}
+
+/* Checkbox termos */
+.check{ display:flex; align-items:flex-start; gap:10px; margin: 8px 0 6px; }
+.check input[type="checkbox"]{ margin-top: 4px; }
+.check .link{ color: var(--blue-600); text-decoration: none; font-weight: 600; }
+.check .link:hover{ text-decoration: underline; }
+
+/* Ações do formulário */
+.form-actions{
+  display:flex; gap:12px; margin-top:16px;
+}
+
+/* Responsivo */
+@media (max-width: 860px){
+  .form-grid{ grid-template-columns: 1fr; }
+  .form-uf{ max-width: none; }
+}
