@@ -11,31 +11,30 @@ import org.springframework.security.web.SecurityFilterChain;
 import org.springframework.security.web.authentication.AuthenticationSuccessHandler;
 import org.springframework.security.web.util.matcher.AntPathRequestMatcher;
 
-@Configuration
-@EnableMethodSecurity
+@Configuration @EnableMethodSecurity
 public class SecurityConfig {
 
-    @Autowired
-    private AuthenticationSuccessHandler customAuthenticationSuccessHandler;
+    @Autowired private AuthenticationSuccessHandler customAuthenticationSuccessHandler;
 
     @Bean
     public SecurityFilterChain securityFilterChain(HttpSecurity http) throws Exception {
         http
                 .authorizeHttpRequests(auth -> auth
-                        // Páginas públicas
+                        // públicas
                         .requestMatchers(
                                 "/", "/index", "/home",
-                                "/entrar", "/login",                 // página e endpoint de login
-                                "/registrar",                        // abertura de caso (pode deixar auth se quiser)
-                                "/cliente/cadastro", "/cliente/cadastrar", "/cadastrocliente", "/cliente/cadastrocliente",
+                                "/entrar", "/login",
+                                "/registrar",
+                                "/cliente/cadastrocliente", "/cliente/cadastrar",
                                 "/advogado/cadastrar", "/cadastroadvogado",
-                                "/termos", "/privacidade"
-                        ).permitAll()
-                        // Recursos estáticos
-                        .requestMatchers(
+                                "/termos", "/privacidade",
                                 "/css/**", "/js/**", "/img/**", "/svg/**", "/webjars/**"
                         ).permitAll()
-                        // Demais rotas precisam de autenticação
+                        // estáticos
+                        .requestMatchers("/css/**", "/js/**", "/img/**", "/svg/**", "/webjars/**", "/favicon.ico").permitAll()
+                        // TODO: estas rotas do header ainda não existem? deixe-as públicas para não redirecionar pro login
+                        .requestMatchers("/como-funciona", "/quem-atendemos", "/areas", "/voluntarios**").permitAll()
+                        // tudo mais precisa de login (ex.: /registrar)
                         .anyRequest().authenticated()
                 )
                 .formLogin(form -> form
@@ -52,13 +51,8 @@ public class SecurityConfig {
                         .permitAll()
                 );
 
-        // Se for usar H2-console algum dia:
-        // http.headers(headers -> headers.frameOptions(frame -> frame.disable()))
-        //   .csrf(csrf -> csrf.ignoringRequestMatchers(new AntPathRequestMatcher("/h2-console/**")));
-
         return http.build();
     }
 
-    @Bean
-    public PasswordEncoder passwordEncoder() { return new BCryptPasswordEncoder(); }
+    @Bean public PasswordEncoder passwordEncoder(){ return new BCryptPasswordEncoder(); }
 }

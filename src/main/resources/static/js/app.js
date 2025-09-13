@@ -25,3 +25,31 @@ function maskPhone(v){ return v.replace(/\D/g,'')
     if(id==='telefone') t.value = maskPhone(t.value);
   });
 });
+
+// ===== Dropzone simples =====
+(function(){
+  const dz = document.getElementById('dropzone');
+  const input = document.getElementById('anexos');
+  const list = document.getElementById('fileList');
+  if(!dz || !input || !list) return;
+
+  const updateList = files => {
+    list.innerHTML = '';
+    [...files].forEach(f => {
+      const li = document.createElement('li');
+      li.textContent = `${f.name} (${Math.round(f.size/1024)} KB)`;
+      list.appendChild(li);
+    });
+  };
+
+  dz.addEventListener('click', () => input.click());
+  dz.addEventListener('keydown', e => { if(e.key==='Enter' || e.key===' ') { e.preventDefault(); input.click(); }});
+  dz.addEventListener('dragover', e => { e.preventDefault(); dz.classList.add('is-over'); });
+  dz.addEventListener('dragleave', () => dz.classList.remove('is-over'));
+  dz.addEventListener('drop', e => {
+    e.preventDefault(); dz.classList.remove('is-over');
+    input.files = e.dataTransfer.files;
+    updateList(input.files);
+  });
+  input.addEventListener('change', () => updateList(input.files));
+})();

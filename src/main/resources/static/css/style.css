@@ -184,3 +184,137 @@ body{
   .form-grid{ grid-template-columns: 1fr; }
   .form-uf{ max-width: none; }
 }
+
+
+<!DOCTYPE html>
+<html lang="pt-br" xmlns:th="http://www.thymeleaf.org">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1" />
+  <title>Cadastrar Caso — Assistência Jurídica Gratuita</title>
+
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800&display=swap" rel="stylesheet">
+  <link rel="stylesheet" th:href="@{/css/style.css}">
+</head>
+<body>
+<header class="site-header">
+  <div class="container header-inner">
+    <a th:href="@{/}" class="brand">
+      <img th:src="@{/img/logo.png}" alt="Logo" class="brand-logo">
+      <span class="brand-name">ASSISTÊNCIA JURÍDICA GRATUITA</span>
+    </a>
+    <button class="nav-toggle" aria-controls="site-nav" aria-expanded="false" onclick="toggleNav()">☰</button>
+    <nav id="site-nav" class="site-nav">
+      <a th:href="@{/como-funciona}">Como funciona</a>
+      <a th:href="@{/quem-atendemos}">Quem atendemos</a>
+      <a th:href="@{/areas}">Áreas de atuação</a>
+      <a th:href="@{/entrar}" class="btn btn-ghost">Entrar</a>
+    </nav>
+  </div>
+</header>
+
+<main class="section">
+  <div class="container">
+    <header class="page-header">
+      <h1>Cadastrar Caso</h1>
+    </header>
+
+    <div class="case-grid">
+      <!-- ===== Coluna esquerda: formulário ===== -->
+      <section class="form-card">
+        <!-- Ajuste a action para o seu endpoint real -->
+        <form class="form" th:action="@{/solicitacao/enviar}" method="post" enctype="multipart/form-data">
+          <h2 class="fieldset-title">Dados do caso</h2>
+
+          <div class="form-grid">
+            <div class="form-group col-span-2">
+              <label for="titulo">Título do caso</label>
+              <input id="titulo" name="titulo" class="input" placeholder="Resumo curto do problema" required/>
+            </div>
+
+            <div class="form-group col-span-2">
+              <label for="categoria">Categoria</label>
+              <input id="categoria" name="categoria" class="input" placeholder="Ex.: Civil, Trabalhista, Previdenciário…"/>
+              <!-- Se já tiver as opções, troque por <select> -->
+            </div>
+
+            <div class="form-group">
+              <label for="cidade">Cidade</label>
+              <input id="cidade" name="cidade" class="input" autocomplete="address-level2"/>
+            </div>
+
+            <div class="form-group form-uf">
+              <label for="uf">UF</label>
+              <input id="uf" name="uf" class="input" maxlength="2" style="text-transform:uppercase"/>
+            </div>
+
+            <div class="form-group col-span-2">
+              <label for="descricao">Descrição</label>
+              <textarea id="descricao" name="descricao" class="input" rows="6"
+                        placeholder="Descreva o caso com detalhes. Inclua datas, valores e outras informações relevantes."
+                        required></textarea>
+            </div>
+
+            <div class="form-group col-span-2">
+              <label for="anexos">Anexos</label>
+              <div id="dropzone" class="dropzone" tabindex="0" role="button" aria-label="Arraste e solte arquivos">
+                <p><strong>Arraste e solte arquivos aqui</strong>, ou clique para escolher<br>
+                  <small>Formatos aceitos: PDF, JPG, PNG</small>
+                </p>
+                <input id="anexos" name="anexos" type="file" multiple accept=".pdf,.jpg,.jpeg,.png" hidden>
+              </div>
+              <ul id="fileList" class="file-list" aria-live="polite"></ul>
+            </div>
+          </div>
+
+          <label class="check">
+            <input type="checkbox" id="aceite" name="aceite" required>
+            <span>Li e concordo com os <a class="link" th:href="@{/privacidade}">Política de Privacidade</a> e <a class="link" th:href="@{/termos}">Proteção de Dados</a>.</span>
+          </label>
+
+          <label class="check">
+            <input type="checkbox" id="contatoAutorizado" name="contatoAutorizado">
+            <span>Autorizo a comunicação através do telefone ou e-mail fornecido</span>
+          </label>
+
+          <div class="form-actions">
+            <button type="submit" class="btn btn-outline" name="action" value="draft">Salvar Rascunho</button>
+            <button type="submit" class="btn btn-primary" name="action" value="submit">Enviar Solicitação</button>
+          </div>
+
+          <p><a class="link muted" href="javascript:history.back()">Cancelar</a></p>
+        </form>
+      </section>
+
+      <!-- ===== Coluna direita: dicas ===== -->
+      <aside class="tips-card">
+        <h3>Dicas para descrever seu caso</h3>
+        <ul class="dot-list">
+          <li>Descreva seu problema de maneira clara e detalhada</li>
+          <li>Inclua dados, como datas, valores, e outras informações relevantes</li>
+          <li>Mantenha boa organização do texto, focando no assunto</li>
+          <li>Anexe documentos importantes e necessários</li>
+        </ul>
+      </aside>
+    </div>
+  </div>
+</main>
+
+<footer class="site-footer">
+  <div class="container">
+    <nav class="footer-nav">
+      <a th:href="@{/contato}">Contato</a>
+      <a th:href="@{/termos}">Termos</a>
+      <a th:href="@{/acessibilidade}">Acessibilidade</a>
+      <a th:href="@{/aviso-legal}">Aviso Legal</a>
+      <a th:href="@{/lgpd}">LGPD</a>
+    </nav>
+    <p class="copyright">© <span th:text="${#dates.format(#dates.createNow(),'yyyy')}"></span> Assistência Jurídica Gratuita</p>
+  </div>
+</footer>
+
+<script defer th:src="@{/js/app.js}"></script>
+</body>
+</html>
