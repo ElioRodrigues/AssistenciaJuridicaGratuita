@@ -24,8 +24,10 @@ public class SecurityConfig {
                         .requestMatchers(
                                 "/", "/index", "/home",
                                 "/entrar", "/login",
-                                "/registrar",
-                                "/cliente/cadastrocliente", "/cliente/cadastrar",
+                                "/registrar/advogado",
+                                "/cliente/cadastro", "/cliente/cadastrocliente",
+
+                                "/cadastrocliente", "/cliente/cadastrar",
                                 "/advogado/cadastrar", "/cadastroadvogado",
                                 "/termos", "/privacidade",
                                 "/css/**", "/js/**", "/img/**", "/svg/**", "/webjars/**"
