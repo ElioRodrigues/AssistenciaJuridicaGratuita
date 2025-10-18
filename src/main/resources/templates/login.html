@@ -1,44 +1,153 @@
 <!DOCTYPE html>
-<html lang="pt-br" xmlns:th="http://www.w3.org/1999/xhtml">
+<html lang="pt-br" xmlns:th="http://www.thymeleaf.org">
 <head>
-    <meta charset="UTF-8">
-    <title>Login</title>
-    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/css/bootstrap.min.css" rel="stylesheet">
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1" />
+    <title>Assistência Jurídica Gratuita — Login</title>
+
+    <!-- Inter (Google Fonts) -->
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800&display=swap" rel="stylesheet">
+
+    <!-- CSS -->
+    <link rel="stylesheet" th:href="@{/css/style.css}" />
     <style>
-        body {
-          background-color: #f8f9fa;
-          height: 100vh;
-          display: flex;
-          justify-content: center;
-          align-items: center;
+        .login-container {
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            min-height: calc(100vh - 100px); /* Ajuste para considerar header/footer */
+            background-color: var(--color-light-gray);
         }
-        .login-card {
-          padding: 2rem;
-          border-radius: 1rem;
-          box-shadow: 0 0 10px rgba(0,0,0,0.1);
-          background-color: #ffffff;
-          width: 100%;
-          max-width: 400px;
+        .login-box {
+            background-color: var(--color-white);
+            padding: 2.5rem;
+            border-radius: 0.5rem;
+            box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
+            width: 100%;
+            max-width: 400px;
+            text-align: center;
+        }
+        .login-box h2 {
+            margin-bottom: 1.5rem;
+            color: var(--color-dark-blue);
+        }
+        .form-group {
+            margin-bottom: 1rem;
+            text-align: left;
+        }
+        .form-group label {
+            display: block;
+            margin-bottom: 0.5rem;
+            font-weight: 500;
+            color: var(--color-dark-gray);
+        }
+        .form-group input[type="email"],
+        .form-group input[type="password"] {
+            width: 100%;
+            padding: 0.75rem;
+            border: 1px solid var(--color-gray);
+            border-radius: 0.25rem;
+            box-sizing: border-box;
+        }
+        .form-actions {
+            margin-top: 1.5rem;
+            display: flex;
+            flex-direction: column;
+            gap: 0.75rem;
+        }
+        .form-actions .btn {
+            width: 100%;
+        }
+        .alert {
+            padding: 0.75rem 1rem;
+            margin-bottom: 1rem;
+            border-radius: 0.25rem;
+            text-align: left;
+            font-size: 0.875rem;
+        }
+        .alert-danger {
+            background-color: #f8d7da;
+            color: #721c24;
+            border: 1px solid #f5c6cb;
+        }
+        .alert-success {
+            background-color: #d4edda;
+            color: #155724;
+            border: 1px solid #c3e6cb;
         }
     </style>
 </head>
 <body>
-<div class="login-card">
-    <h2 class="text-center mb-4">Entrar</h2>
-    <form th:action="@{/login}" method="post">
+<!-- Header -->
+<header class="site-header">
+    <div class="container header-inner">
+        <a th:href="@{/}" class="brand">
+            <img th:src="@{/img/logo.png}" alt="Logo Assistência Jurídica Gratuita" class="brand-logo" />
+            <span class="brand-name">ASSISTÊNCIA JURÍDICA GRATUITA</span>
+        </a>
 
-    <div class="mb-3">
-            <label for="email" class="form-label">E-mail</label>
-            <input type="email" class="form-control" id="email" name="email" required>
-        </div>
-        <div class="mb-3">
-            <label for="senha" class="form-label">Senha</label>
-            <input type="password" class="form-control" id="senha" name="senha" required>
-        </div>
-        <button type="submit" class="btn btn-primary w-100">Entrar</button>
-    </form>
-</div>
+        <button class="nav-toggle" aria-controls="site-nav" aria-expanded="false" onclick="toggleNav()">☰</button>
 
-<script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/js/bootstrap.bundle.min.js"></script>
+        <nav id="site-nav" class="site-nav">
+            <a th:href="@{/como-funciona}">Como funciona</a>
+            <a th:href="@{/quem-atendemos}">Quem atendemos</a>
+            <a th:href="@{/areas}">Áreas de atuação</a>
+            <a th:href="@{/entrar}" class="btn btn-ghost">Entrar</a>
+        </nav>
+    </div>
+</header>
+
+<main class="login-container">
+    <div class="login-box">
+        <h2>Login</h2>
+
+        <div th:if="${param.error}" class="alert alert-danger">
+            E-mail ou senha inválidos.
+        </div>
+        <div th:if="${param.logout}" class="alert alert-success">
+            Você foi desconectado.
+        </div>
+        <div th:if="${cadastroSucesso}" class="alert alert-success">
+            Cadastro realizado com sucesso! Faça login.
+        </div>
+        <div th:if="${cadastroErro}" class="alert alert-danger">
+            Erro no cadastro: <span th:text="${cadastroErro}"></span>
+        </div>
+
+        <form th:action="@{/login}" method="post">
+            <div class="form-group">
+                <label for="email">E-mail:</label>
+                <input type="email" id="email" name="email" required autofocus />
+            </div>
+            <div class="form-group">
+                <label for="senha">Senha:</label>
+                <input type="password" id="senha" name="senha" required />
+            </div>
+            <div class="form-actions">
+                <button type="submit" class="btn btn-primary">Entrar</button>
+                <a th:href="@{/}" class="btn btn-outline">Voltar</a>
+                <a th:href="@{/registrar/cliente}" class="btn btn-secondary">Cadastrar Cliente</a>
+            </div>
+        </form>
+    </div>
+</main>
+
+<!-- Footer -->
+<footer class="site-footer">
+    <div class="container">
+        <nav class="footer-nav">
+            <a th:href="@{/contato}">Contato</a>
+            <a th:href="@{/termos}">Termos</a>
+            <a th:href="@{/acessibilidade}">Acessibilidade</a>
+            <a th:href="@{/aviso-legal}">Aviso Legal</a>
+            <a th:href="@{/lgpd}">LGPD</a>
+        </nav>
+        <p class="copyright">© <span th:text="${#dates.format(#dates.createNow(),'yyyy')}"></span> Assistência Jurídica Gratuita</p>
+    </div>
+</footer>
+
+<script th:src="@{/js/app.js}"></script>
 </body>
 </html>

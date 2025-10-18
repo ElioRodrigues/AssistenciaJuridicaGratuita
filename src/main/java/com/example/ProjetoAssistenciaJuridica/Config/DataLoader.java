@@ -42,6 +42,22 @@ public class DataLoader implements CommandLineRunner {
             System.out.println("Usuário Admin criado com sucesso.");
         }
 
+        // Criação de usuário CLIENTE para testes
+        if (clientRepository.findByEmail("cliente@teste.com") == null) {
+            Cliente clienteUser = new Cliente();
+            clienteUser.setNome("Cliente Teste");
+            clienteUser.setEmail("cliente@teste.com");
+            clienteUser.setSenha(passwordEncoder.encode("123456")); // Senha simples para teste
+            clienteUser.setCpf("111.111.111-11");
+            clienteUser.setRole("ROLE_CLIENTE");
+            clienteUser.setCep("11111-111");
+            clienteUser.setEndereco("Rua Teste, 123");
+            clienteUser.setTelefone("(11) 11111-1111");
+            clienteUser.setGenero("Feminino");
+            clientRepository.save(clienteUser);
+            System.out.println("Usuário Cliente de Teste criado com sucesso.");
+        }
+
         if (areaAtuacaoRepository.count() == 0) {
             System.out.println("Populando tabela area_atuacao...");
 

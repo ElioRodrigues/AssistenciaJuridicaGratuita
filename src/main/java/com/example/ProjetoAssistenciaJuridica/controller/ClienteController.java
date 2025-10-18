@@ -9,6 +9,8 @@ import org.springframework.web.bind.annotation.RequestMapping;
 public class ClienteController {
     @GetMapping({"/cadastro", "/cadastrocliente"})
     public String cadastroCliente() {
+
+
         return "cliente/cadastrocliente"; // templates/cliente/cadastrocliente.html
     }
 }

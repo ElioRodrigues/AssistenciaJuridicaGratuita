@@ -32,7 +32,7 @@ public class SolicitacaoController {
 
 
     @GetMapping("/cliente/solicitacao/nova")
-    @PreAuthorize("hasRole(\'CLIENTE\')")
+    @PreAuthorize("hasRole('CLIENTE')")
     public String showNovaSolicitacaoForm(Model model) {
         model.addAttribute("solicitacao", new Solicitacao());
         // Buscar todas as áreas de atuação do banco
@@ -43,7 +43,7 @@ public class SolicitacaoController {
     }
 
     @PostMapping("/cliente/solicitacao/nova")
-    @PreAuthorize("hasRole(\'CLIENTE\')")
+    @PreAuthorize("hasRole('CLIENTE')")
     public String processNovaSolicitacao(@ModelAttribute("solicitacao") Solicitacao solicitacao,
                                          BindingResult result,
                                          Authentication authentication,
@@ -70,7 +70,7 @@ public class SolicitacaoController {
     }
 
     @GetMapping("/cliente/solicitacoes/historico")
-    @PreAuthorize("hasRole(\'CLIENTE\')")
+    @PreAuthorize("hasRole('CLIENTE')")
     public String showHistoricoCliente(Model model, Authentication authentication) {
         UserDetails userDetails = (UserDetails) authentication.getPrincipal();
         List<Solicitacao> solicitacoes = solicitacaoService.buscarSolicitacoesPorCliente(userDetails.getUsername());
@@ -79,7 +79,7 @@ public class SolicitacaoController {
     }
 
     @GetMapping("/advogado/solicitacoes/listar")
-    @PreAuthorize("hasRole(\'ADVOGADO\')")
+    @PreAuthorize("hasRole('ADVOGADO')")
     public String showListarSolicitacoesAbertas(Model model) {
         List<Solicitacao> solicitacoes = solicitacaoService.buscarSolicitacoesAbertas();
         model.addAttribute("solicitacoes", solicitacoes);
@@ -87,7 +87,7 @@ public class SolicitacaoController {
     }
 
     @PostMapping("/advogado/solicitacao/assumir/{id}")
-    @PreAuthorize("hasRole(\'ADVOGADO\')")
+    @PreAuthorize("hasRole('ADVOGADO')")
     public String assumirSolicitacao(@PathVariable Long id,
                                      Authentication authentication,
                                      RedirectAttributes redirectAttributes) {
@@ -103,7 +103,7 @@ public class SolicitacaoController {
     }
 
     @GetMapping("/advogado/solicitacoes/aceitas")
-    @PreAuthorize("hasRole(\'ADVOGADO\')")
+    @PreAuthorize("hasRole('ADVOGADO')")
     public String showHistoricoAdvogado(Model model, Authentication authentication) {
         UserDetails userDetails = (UserDetails) authentication.getPrincipal();
         List<Solicitacao> solicitacoes = solicitacaoService.buscarSolicitacoesPorAdvogado(userDetails.getUsername());
@@ -111,4 +111,3 @@ public class SolicitacaoController {
         return "advogado/historico_aceitas";
     }
 }
-

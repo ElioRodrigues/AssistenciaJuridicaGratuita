@@ -25,7 +25,7 @@ public class SecurityConfig {
                                 "/", "/index", "/home",
                                 "/entrar", "/login",
                                 "/registrar/advogado",
-                                "/cliente/cadastro", "/cliente/cadastrocliente",
+                                "/cliente/cadastro", "/cliente/cadastrocliente", "/registrar/cliente",
 
                                 "/cadastrocliente", "/cliente/cadastrar",
                                 "/advogado/cadastrar", "/cadastroadvogado",
@@ -36,6 +36,7 @@ public class SecurityConfig {
                         .requestMatchers("/css/**", "/js/**", "/img/**", "/svg/**", "/webjars/**", "/favicon.ico").permitAll()
                         // TODO: estas rotas do header ainda não existem? deixe-as públicas para não redirecionar pro login
                         .requestMatchers("/como-funciona", "/quem-atendemos", "/areas", "/voluntarios**").permitAll()
+                        .requestMatchers("/cliente/solicitacao/nova").hasRole("CLIENTE")
                         // tudo mais precisa de login (ex.: /registrar)
                         .anyRequest().authenticated()
                 )
