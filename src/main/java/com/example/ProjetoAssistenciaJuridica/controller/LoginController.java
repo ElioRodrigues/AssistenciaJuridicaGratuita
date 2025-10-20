@@ -29,7 +29,7 @@ public class LoginController {
         if (model.containsAttribute("cadastroErro")) {
             model.addAttribute("cadastroErro", model.getAttribute("cadastroErro"));
         }
-        return "login";
+        return "publico/login";
     }
 
     @GetMapping("/registrar/cliente")
@@ -58,13 +58,13 @@ public class LoginController {
     @GetMapping("/registrar/advogado")
     public String showRegisterAdvogadoForm(Model model) {
         model.addAttribute("advogado", new Advogado());
-        return "cadastroadvogado";
+        return "advogado/cadastroadvogado";
     }
 
     @PostMapping("/registrar/advogado")
     public String processRegisterAdvogado(@ModelAttribute("advogado") Advogado advogado, BindingResult result, RedirectAttributes redirectAttributes) {
         if (result.hasErrors()) {
-            return "cadastroadvogado";
+            return "advogado/cadastroadvogado";
         }
         try {
             userService.saveAdvogado(advogado);
