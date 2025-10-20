@@ -35,7 +35,7 @@ public class LoginController {
     @GetMapping("/registrar/cliente")
     public String showRegisterClienteForm(Model model) {
         model.addAttribute("cliente", new Cliente());
-        return "cadastrocliente";
+        return "cliente/cadastrocliente";
     }
 
     @PostMapping("/registrar/cliente")

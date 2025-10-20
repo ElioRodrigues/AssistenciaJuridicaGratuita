@@ -6,14 +6,10 @@
   <component name="ChangeListManager">
     <list default="true" id="f803d601-9da6-46eb-a3cd-f63ddea8ebd2" name="Changes" comment="">
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/java/com/example/ProjetoAssistenciaJuridica/controller/HomeController.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/com/example/ProjetoAssistenciaJuridica/controller/HomeController.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/java/com/example/ProjetoAssistenciaJuridica/Config/SecurityConfig.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/com/example/ProjetoAssistenciaJuridica/Config/SecurityConfig.java" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/src/main/java/com/example/ProjetoAssistenciaJuridica/controller/LoginController.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/com/example/ProjetoAssistenciaJuridica/controller/LoginController.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/resources/templates/cadastroadvogado.html" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/resources/templates/advogado/cadastroadvogado.html" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/resources/templates/cadastrocliente.html" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/resources/templates/cliente/cadastrocliente.html" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/src/main/resources/templates/cliente/cliente_dashboard.html" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/resources/templates/cliente/cliente_dashboard.html" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/resources/templates/home.html" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/resources/templates/publico/home.html" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/resources/templates/login.html" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/resources/templates/publico/login.html" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/resources/templates/registrar.html" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/resources/templates/cliente/registrar.html" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/resources/templates/publico/home.html" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/resources/templates/publico/home.html" afterDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />

@@ -25,7 +25,7 @@ public class SecurityConfig {
                                 "/", "/index", "/home",
                                 "/entrar", "/login",
                                 "/registrar/advogado",
-                                "/cliente/cadastro", "/cliente/cadastrocliente", "/registrar/cliente",
+                                "/cliente/cadastro", "/cliente/cadastrocliente", "/registrar/cliente", "/cadastrocliente",
 
                                 "/cadastrocliente", "/cliente/cadastrar",
                                 "/advogado/cadastrar", "/cadastroadvogado",
