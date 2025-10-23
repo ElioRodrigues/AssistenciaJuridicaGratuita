@@ -46,7 +46,7 @@
                 <div class="hero-actions">
                     <!-- visitante -> cadastro do cliente -->
                     <a class="btn btn-primary" 
-                    th:href="${#authorization.expression('isAuthenticated()')} ? @{/cliente/solicitacao/nova} : @{/cadastrocliente}">
+                    th:href="${#authorization.expression('isAuthenticated()')} ? @{/cliente/dashboard} : @{/cadastrocliente}">
                     Iniciar atendimento
                     </a>
 
