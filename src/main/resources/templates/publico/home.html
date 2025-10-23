@@ -1,6 +1,6 @@
 <!DOCTYPE html>
 <html lang="pt-br" xmlns:th="http://www.thymeleaf.org"
-      xmlns:sec="https://www.thymeleaf.org/extras/spring-security">
+      xmlns:sec="http://www.thymeleaf.org/extras/spring-security">
 <head>
     <meta charset="UTF-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1" />
@@ -45,17 +45,15 @@
 
                 <div class="hero-actions">
                     <!-- visitante -> cadastro do cliente -->
-                    <a class="btn btn-primary"
-                       th:href="@{/cadastrocliente}"
-                       sec:authorize="!isAuthenticated()">Iniciar atendimento</a>
+                    <a class="btn btn-primary" 
+                    th:href="${#authorization.expression('isAuthenticated()')} ? @{/cliente/dashboard} : @{/cadastrocliente}">
+                    Iniciar atendimento
+                    </a>
 
-                    <!-- autenticado -> página de registrar (abrir caso) -->
-                    <a class="btn btn-primary"
-                       th:href="@{/cliente/solicitacao/nova}"
-                       sec:authorize="isAuthenticated()">Iniciar atendimento</a>
 
-                    <a class="btn btn-outline" th:href="@{/registrar/advogado}"
-                       sec:authorize="!isAuthenticated()">Quero ser voluntário</a>
+                    <a class="btn btn-outline" th:href="@{/registrar/advogado}" 
+                    sec:authorize="isAnonymous()">Quero ser voluntário</a>
+
                 </div>
             </div>
 
