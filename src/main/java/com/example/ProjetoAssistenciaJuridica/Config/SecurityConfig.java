@@ -26,9 +26,8 @@ public class SecurityConfig {
                                 "/entrar", "/login",
                                 "/registrar/advogado",
                                 "/cliente/cadastro", "/cliente/cadastrocliente", "/registrar/cliente", "/cadastrocliente",
-
                                 "/cadastrocliente", "/cliente/cadastrar",
-                                "/advogado/cadastrar", "/cadastroadvogado",
+                                "/advogado/cadastrar", "/cadastroadvogado", "/areas","/areas/civil",
                                 "/termos", "/privacidade",
                                 "/css/**", "/js/**", "/img/**", "/svg/**", "/webjars/**"
                         ).permitAll()

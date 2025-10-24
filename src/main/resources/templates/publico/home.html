@@ -29,7 +29,6 @@
             <a th:href="@{/como-funciona}">Como funciona</a>
             <a th:href="@{/quem-atendemos}">Quem atendemos</a>
             <a th:href="@{/areas}">Áreas de atuação</a>
-            <!-- ALTERADO: /entrar (página de login), não /login (endpoint de processamento) -->
             <a th:href="@{/entrar}" class="btn btn-ghost">Entrar</a>
         </nav>
     </div>
@@ -75,6 +74,9 @@
                 <article class="area-card">
                     <img th:src="@{/img/icon-civil.png}" alt="" aria-hidden="true">
                     <div><h3>Civil</h3><p>Conflitos entre pessoas, herança, contratos.</p></div>
+
+                    <!-- Link invisível estendido sobre o card (não altera aparência) -->
+                    <a th:href="@{/areas/civil}" class="stretched-link" aria-label="Abrir página da área Civil"></a>
                 </article>
 
                 <article class="area-card">
@@ -142,7 +144,7 @@
         </div>
     </section>
 
-    <!-- Buscar profissionais -->
+    <!-- Buscar profissionais (Não Funcional ainda) -->
     <section class="section">
         <div class="container search-grid">
             <div>

@@ -224,7 +224,7 @@
         }
 
     </style>
-    <script>
+    <script th:inline="javascript">
         document.addEventListener('DOMContentLoaded', function() {
             const editButton = document.getElementById('edit-button');
             const saveButton = document.getElementById('save-button');
@@ -238,7 +238,6 @@
                 });
                 editElements.forEach(el => {
                     el.style.display = isEditing ? 'block' : 'none';
-                    // Desabilita os campos de edição no modo de visualização
                     if (isEditing) {
                         el.removeAttribute('disabled');
                     } else {
@@ -249,7 +248,7 @@
                 saveButton.style.display = isEditing ? 'block' : 'none';
             }
 
-            // Inicializa no modo de visualização (garantindo que os campos de edição estão desabilitados)
+            // Inicializa no modo de visualização
             toggleEditMode(false);
 
             editButton.addEventListener('click', function() {
@@ -257,22 +256,23 @@
             });
 
             saveButton.addEventListener('click', function() {
-                // Ao clicar em Salvar, o formulário é submetido
                 dataForm.submit();
             });
 
             // Lógica para exibir a mensagem de sucesso/erro como um alert
-            const mensagemSucesso = '[[${mensagemSucesso}]]';
-            const mensagemErro = '[[${mensagemErro}]]';
+            // Usando th:inline="javascript" e /*[[...]]*/ para injeção segura
+            const mensagemSucesso = /*[[${mensagemSucesso}]]*/ 'null';
+            const mensagemErro = /*[[${mensagemErro}]]*/ 'null';
 
-            if (mensagemSucesso && mensagemSucesso.trim() !== '' && mensagemSucesso !== 'null') {
+            if (mensagemSucesso && mensagemSucesso !== 'null') {
                 alert(mensagemSucesso);
             }
-            if (mensagemErro && mensagemErro.trim() !== '' && mensagemErro !== 'null') {
+            if (mensagemErro && mensagemErro !== 'null') {
                 alert(mensagemErro);
             }
         });
     </script>
+
 
 </head>
 
@@ -296,12 +296,6 @@
         </nav>
     </div>
     <!-- Mensagens de Feedback -->
-    <div th:if="${mensagemSucesso}" class="alert alert-success" style="margin-bottom: 2rem;">
-        <p th:text="${mensagemSucesso}"></p>
-    </div>
-    <div th:if="${mensagemErro}" class="alert alert-danger" style="margin-bottom: 2rem;">
-        <p th:text="${mensagemErro}"></p>
-    </div>
 
 </header>
 

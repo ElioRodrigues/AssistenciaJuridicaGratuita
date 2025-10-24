@@ -1,0 +1,110 @@
+<!DOCTYPE html>
+<html lang="pt-br" xmlns:th="http://www.thymeleaf.org">
+<head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1" />
+    <title>Assistência Jurídica — Área Civil</title>
+
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800&display=swap" rel="stylesheet">
+    <link rel="stylesheet" th:href="@{/css/style.css}" />
+
+    <style>
+        .area-hero { padding: 4rem 0 2rem; }
+        .area-hero h1 { font-size: clamp(2rem, 4vw, 3rem); color: var(--color-dark-blue); margin-bottom: .75rem; }
+        .breadcrumb { font-size: .95rem; color: var(--color-medium-gray); margin-bottom: 1rem; }
+        .breadcrumb a { color: var(--color-blue); text-decoration: none; }
+        .area-grid { display: grid; gap: 2rem; grid-template-columns: 1.7fr 1fr; }
+        @media (max-width: 920px){ .area-grid { grid-template-columns: 1fr; } }
+        .area-panel { background: #fff; border: 1px solid #e8edf3; border-radius: 16px; padding: 1.25rem 1.5rem; }
+        .area-panel h2 { font-size: 1.25rem; margin-bottom: .75rem; color: var(--color-slate-900, #2E3A46); }
+        .dot-list { list-style: disc; padding-left: 1.25rem; line-height: 1.6; }
+        .muted { color: var(--color-medium-gray); }
+        .cta-row { display: flex; gap: .75rem; flex-wrap: wrap; margin-top: 1rem; }
+    </style>
+</head>
+<body>
+<header class="site-header">
+    <div class="container header-inner">
+        <a th:href="@{/}" class="brand">
+            <img th:src="@{/img/logo.png}" alt="Logo Assistência Jurídica Gratuita" class="brand-logo" />
+            <span class="brand-name">ASSISTÊNCIA JURÍDICA GRATUITA</span>
+        </a>
+
+        <button class="nav-toggle" aria-controls="site-nav" aria-expanded="false" onclick="toggleNav()">☰</button>
+
+        <nav id="site-nav" class="site-nav">
+            <a th:href="@{/como-funciona}">Como funciona</a>
+            <a th:href="@{/quem-atendemos}">Quem atendemos</a>
+            <a th:href="@{/areas}">Áreas de atuação</a>
+            <a th:href="@{/entrar}" class="btn btn-ghost">Entrar</a>
+        </nav>
+    </div>
+</header>
+
+<main>
+    <section class="area-hero">
+        <div class="container">
+            <nav class="breadcrumb">
+                <a th:href="@{/}">Início</a> · <a th:href="@{/areas}">Áreas</a> · <span>Civil</span>
+            </nav>
+
+            <h1>Direito Civil</h1>
+            <p class="lead muted">Conflitos entre pessoas, herança, contratos, responsabilidade civil e direitos da personalidade.</p>
+
+            <div class="cta-row">
+                <!-- Página pública: CTA leva para cadastro sempre -->
+                <a class="btn btn-primary" th:href="@{/cadastrocliente}">Iniciar atendimento civil</a>
+                <a class="btn btn-outline" th:href="@{/registrar/advogado}">Quero ser voluntário</a>
+            </div>
+        </div>
+    </section>
+
+    <section class="section">
+        <div class="container area-grid">
+            <article class="area-panel">
+                <h2>Quando procurar ajuda na área civil?</h2>
+                <ul class="dot-list">
+                    <li>Problemas com <strong>contratos</strong> (aluguel, compra e venda, prestação de serviços).</li>
+                    <li><strong>Responsabilidade civil</strong> e indenizações por danos materiais/morais.</li>
+                    <li>Questões de <strong>família e sucessões</strong> (herança, inventário, partilha).</li>
+                    <li>Direitos da personalidade (imagem, nome, privacidade, honra).</li>
+                </ul>
+            </article>
+
+            <aside class="area-panel">
+                <h2>Documentos úteis</h2>
+                <ul class="dot-list">
+                    <li>RG/CPF e comprovante de endereço.</li>
+                    <li>Contratos, recibos, notas fiscais, extratos.</li>
+                    <li>Provas do ocorrido (prints, e-mails, fotos, conversas).</li>
+                    <li>Boletim de ocorrência (se houver).</li>
+                </ul>
+            </aside>
+
+            <article class="area-panel">
+                <h2>Exemplos de casos frequentes</h2>
+                <ul class="dot-list">
+                    <li>Quebra de contrato ou cláusulas abusivas.</li>
+                    <li>Negativação indevida e cobranças irregulares.</li>
+                    <li>Vício em produto/serviço e direito de arrependimento.</li>
+                    <li>Acidente com pedido de indenização.</li>
+                </ul>
+            </article>
+
+            <aside class="area-panel">
+                <h2>Próximos passos</h2>
+                <p class="muted">Cadastre-se e conte seu caso com detalhes. Você poderá anexar documentos e acompanhar o andamento.</p>
+                <a class="btn btn-blue" th:href="@{/cadastrocliente}">Começar agora</a>
+            </aside>
+        </div>
+    </section>
+</main>
+
+<footer class="site-footer">
+    <div class="container">
+        <nav class="footer-nav">
+            <a th:href="@{/contato}">Contato</a>
+            <a th:href="@{/termos}">Termos</a>
+            <a th:href="@{/acessibilidade}">Acessibilidade</a>
