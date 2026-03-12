@@ -21,35 +21,33 @@ public class ClienteController {
 
     @GetMapping({"/cadastro", "/cadastrocliente"})
     public String cadastroCliente() {
-        return "cliente/cadastrocliente"; // templates/cliente/cadastrocliente.html
+        return "cliente/cadastrocliente";
     }
 
     @PostMapping("/dados/editar")
     public String editarDadosCliente(Cliente clienteAtualizado, RedirectAttributes attributes) {
-        // 1. Obter o email do usuário logado via Spring Security
+        // Obter o email do usuário logado via Spring Security
         Authentication auth = SecurityContextHolder.getContext().getAuthentication();
         String userEmail = auth.getName();
 
-        // 2. Buscar o cliente no banco de dados pelo email
+        // Buscar o cliente no banco de dados pelo email
         Optional<Cliente> clienteOptional = Optional.ofNullable(clientRepository.findByEmail(userEmail));
 
         if (clienteOptional.isPresent()) {
             Cliente cliente = clienteOptional.get();
 
-            // 3. Atualiza apenas os campos permitidos com os dados do formulário
+            //Atualiza apenas os campos permitidos com os dados do formulário
             cliente.setNome(clienteAtualizado.getNome());
             cliente.setTelefone(clienteAtualizado.getTelefone());
             cliente.setEndereco(clienteAtualizado.getEndereco());
 
-            // 4. Salvar as alterações
+            // Salvar as alterações
             clientRepository.save(cliente);
             attributes.addFlashAttribute("mensagemSucesso", "Dados atualizados com sucesso!");
         } else {
-            // Caso o cliente não seja encontrado (o que não deve ocorrer se o login funcionar)
             attributes.addFlashAttribute("mensagemErro", "Erro ao encontrar o usuário logado.");
         }
 
-        // 5. Redireciona de volta para o dashboard
         return "redirect:/cliente/dashboard";
     }
 }

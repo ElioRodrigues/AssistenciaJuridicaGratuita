@@ -1,9 +1,11 @@
 package com.example.ProjetoAssistenciaJuridica.controller;
 
+import com.example.ProjetoAssistenciaJuridica.repository.SolicitacaoRepository;
+import com.example.ProjetoAssistenciaJuridica.model.Solicitacao;
+import java.util.List;
 import com.example.ProjetoAssistenciaJuridica.model.Cliente;
-import com.example.ProjetoAssistenciaJuridica.repository.ClientRepository; // Nome correto do repositório
+import com.example.ProjetoAssistenciaJuridica.repository.ClientRepository;
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.security.core.Authentication;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.GetMapping;
@@ -17,23 +19,28 @@ import java.util.Optional;
 public class ClienteDashboardController {
 
     @Autowired
-    private ClientRepository clientRepository; // Injeção do repositório com o nome correto
+    private ClientRepository clientRepository;
+    @Autowired
+    private SolicitacaoRepository solicitacaoRepository;
 
     @GetMapping("/dashboard")
     public String clienteDashboard(Model model, Principal principal) {
         if (principal != null) {
             String userEmail = principal.getName(); // Obtém o email do usuário logado
-            // Usamos Optional.ofNullable pois findByEmail pode retornar null se não encontrar
-            Optional<Cliente> clienteOptional = Optional.ofNullable(clientRepository.findByEmail(userEmail));
+            Optional<Cliente> clienteOptional = Optional.ofNullable(clientRepository.findByEmail(userEmail)); //caso n encontre, só pra previnir.
             if (clienteOptional.isPresent()) {
-                model.addAttribute("cliente", clienteOptional.get());
+                Cliente cliente = clienteOptional.get(); // Obtém o objeto Cliente
+                model.addAttribute("cliente", cliente);
+
+                List<Solicitacao> solicitacoes = solicitacaoRepository.findByClienteOrderByDataCriacaoDesc(cliente);
+
+                model.addAttribute("solicitacoes", solicitacoes);
+
             } else {
-                // Tratar caso o cliente não seja encontrado (redirecionar para erro ou página de login novamente)
                 return "redirect:/entrar?error=clienteNotFound";
             }
         } else {
-            // Tratar caso não haja principal (usuário não logado, embora o Spring Security já deveria ter impedido)
-            return "redirect:/entrar";
+            return "redirect:/entrar"; //caso o spring secutiry não funcione
         }
         return "cliente/cliente_dashboard";
     }

@@ -1,19 +1,497 @@
 <!DOCTYPE html>
-<html xmlns:th="http://www.thymeleaf.org" lang="pt-br">
+<html lang="pt-br" xmlns:th="http://www.thymeleaf.org"
+      xmlns:sec="http://www.thymeleaf.org/extras/spring-security">
 <head>
-    <meta charset="UTF-8">
-    <title>Dashboard do Advogado</title>
+    <meta charset="UTF-8"/>
+    <meta name="viewport" content="width=device-width, initial-scale=1"/>
+    <title>Assistência Jurídica Gratuita — Dashboard Advogado</title>
+
+    <!-- Inter (Google Fonts) -->
+    <link rel="preconnect" href="https://fonts.googleapis.com"/>
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin/>
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800&display=swap"
+          rel="stylesheet"/>
+
+    <!-- CSS principal do sistema -->
+    <link rel="stylesheet" th:href="@{/css/style.css}"/>
+
+    <style>
+        :root {
+            /* Complemento de variáveis de cor específicas do dashboard */
+            --color-light-gray: #f3f4f6;
+            --color-white: #ffffff;
+            --color-gray-100: #e5e7eb;
+            --color-gray-300: #d1d5db;
+            --color-gray-500: #6b7280;
+            --color-gray-800: #111827;
+            --color-dark-blue: var(--blue-900);
+        }
+
+        body {
+            margin: 0;
+            font-family: 'Inter', system-ui, -apple-system, BlinkMacSystemFont, 'Segoe UI', sans-serif;
+            background-color: var(--color-light-gray);
+        }
+
+        .dashboard-container {
+            display: grid;
+            grid-template-columns: 280px 1fr;
+            gap: 2rem;
+            padding: 2rem;
+            max-width: 1200px;
+            margin: 0 auto;
+        }
+
+        .sidebar {
+            background-color: var(--color-white);
+            border-radius: 0.75rem;
+            box-shadow: 0 2px 6px rgba(0, 0, 0, 0.06);
+            padding: 1.5rem 1.25rem;
+            display: flex;
+            flex-direction: column;
+            justify-content: space-between;
+        }
+
+        .sidebar-profile {
+            text-align: center;
+            margin-bottom: 1.5rem;
+        }
+
+        .sidebar-profile img {
+            width: 72px;
+            height: 72px;
+            border-radius: 999px;
+            object-fit: cover;
+            margin-bottom: 0.75rem;
+        }
+
+        .sidebar-profile h3 {
+            margin: 0;
+            font-size: 1rem;
+            color: var(--color-dark-blue);
+        }
+
+        .sidebar-profile p {
+            margin: 0.15rem 0;
+            font-size: 0.85rem;
+            color: var(--color-gray-500);
+        }
+
+        .sidebar-profile small {
+            display: block;
+            margin-top: 0.25rem;
+            font-size: 0.8rem;
+            color: var(--color-gray-500);
+        }
+
+        .sidebar-nav ul {
+            list-style: none;
+            padding: 0;
+            margin: 0;
+        }
+
+        .sidebar-nav li {
+            margin-bottom: 0.5rem;
+        }
+
+        .sidebar-nav a {
+            display: flex;
+            align-items: center;
+            padding: 0.55rem 0.75rem;
+            border-radius: 0.5rem;
+            text-decoration: none;
+            color: var(--color-gray-800);
+            font-size: 0.9rem;
+        }
+
+        .sidebar-nav a:hover {
+            background-color: var(--gray-100);
+        }
+
+        .sidebar-nav a.active {
+            background-color: var(--blue-900);
+            color: #ffffff;            /* ou var(--color-white) */
+            font-weight: 600;          /* opcional, só pra dar destaque */
+        }
+
+
+        .sidebar-nav .btn-logout {
+            width: 100%;
+            border: none;
+            padding: 0.6rem 0.75rem;
+            border-radius: 0.5rem;
+            background-color: #dc3545;
+            color: #ffffff;
+            font-size: 0.9rem;
+            cursor: pointer;
+            margin-top: 1.5rem;
+        }
+
+        .sidebar-nav .btn-logout:hover {
+            background-color: #b02a37;
+        }
+
+        .main-content {
+            display: flex;
+            flex-direction: column;
+            gap: 1.5rem;
+        }
+
+        .page-header {
+            display: flex;
+            flex-direction: column;
+            gap: 0.25rem;
+        }
+
+        .page-header h1 {
+            margin: 0;
+            font-size: 1.6rem;
+            color: var(--color-dark-blue);
+        }
+
+        .page-header p {
+            margin: 0;
+            font-size: 0.95rem;
+            color: var(--color-gray-500);
+        }
+
+        .kpi-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(220px, 1fr));
+            gap: 1rem;
+        }
+
+        .card {
+            background-color: var(--color-white);
+            border-radius: 0.75rem;
+            padding: 1.25rem 1.25rem 1rem;
+            box-shadow: 0 2px 6px rgba(0, 0, 0, 0.05);
+        }
+
+        .card-title {
+            margin: 0 0 0.5rem 0;
+            font-size: 0.95rem;
+            font-weight: 600;
+            color: var(--color-gray-800);
+        }
+
+        .kpi-value {
+            font-size: 1.8rem;
+            font-weight: 700;
+            color: var(--blue-900);
+            margin-bottom: 0.15rem;
+        }
+
+        .kpi-subtext {
+            font-size: 0.8rem;
+            color: var(--color-gray-500);
+            margin-bottom: 0.5rem;
+        }
+
+        .card-actions {
+            margin-top: 0.5rem;
+        }
+
+        .btn-primary-sm,
+        .btn-outline-sm {
+            display: inline-block;
+            font-size: 0.8rem;
+            padding: 0.45rem 0.8rem;
+            border-radius: 999px;
+            text-decoration: none;
+            font-weight: 500;
+        }
+
+        .btn-primary-sm {
+            background-color: var(--blue-600);
+            color: #ffffff;
+            border: none;
+        }
+
+        .btn-primary-sm:hover {
+            background-color: #155bcc;
+        }
+
+        .btn-outline-sm {
+            border: 1px solid var(--blue-900);
+            color: var(--blue-900);
+        }
+
+        .btn-outline-sm:hover {
+            background-color: rgba(0, 77, 153, 0.06);
+        }
+
+        .section-title {
+            font-size: 1rem;
+            font-weight: 600;
+            color: var(--color-gray-800);
+            margin: 0 0 0.75rem;
+        }
+
+        .table-wrapper {
+            overflow-x: auto;
+        }
+
+        table {
+            width: 100%;
+            border-collapse: collapse;
+            font-size: 0.85rem;
+        }
+
+        thead tr {
+            background-color: var(--color-gray-100);
+        }
+
+        th, td {
+            padding: 0.55rem 0.65rem;
+            text-align: left;
+            border-bottom: 1px solid var(--color-gray-100);
+        }
+
+        th {
+            font-weight: 600;
+            color: var(--color-gray-800);
+        }
+
+        td {
+            color: var(--color-gray-800);
+        }
+
+        .tag-status {
+            display: inline-block;
+            padding: 0.15rem 0.5rem;
+            border-radius: 999px;
+            font-size: 0.75rem;
+        }
+
+        .tag-aberta {
+            background-color: #e0f2fe;
+            color: #0369a1;
+        }
+
+        .tag-em-analise {
+            background-color: #fef9c3;
+            color: #854d0e;
+        }
+
+        .tag-concluida {
+            background-color: #dcfce7;
+            color: #166534;
+        }
+
+        .tag-cancelada {
+            background-color: #fee2e2;
+            color: #b91c1c;
+        }
+
+        .empty-state {
+            font-size: 0.85rem;
+            color: var(--color-gray-500);
+            padding: 0.35rem 0;
+        }
+
+        .case-actions a,
+        .case-actions button {
+            font-size: 0.78rem;
+        }
+
+        .btn-assumir {
+            border-radius: 999px;
+            padding: 0.35rem 0.7rem;
+            border: none;
+            background-color: #16a34a;
+            color: #ffffff;
+            cursor: pointer;
+        }
+
+        .btn-assumir:hover {
+            background-color: #15803d;
+        }
+
+        @media (max-width: 900px) {
+            .dashboard-container {
+                grid-template-columns: 1fr;
+                padding: 1.25rem;
+            }
+        }
+    </style>
 </head>
 <body>
-<h1>Bem-vindo(a ), Advogado(a)!</h1>
-<p>O que você gostaria de fazer?</p>
-<ul>
-    <li><a th:href="@{/advogado/solicitacoes/listar}">Visualizar Solicitações Abertas</a></li>
-    <li><a th:href="@{/advogado/solicitacoes/aceitas}">Visualizar Meu Histórico de Solicitações</a></li>
-</ul>
-<!-- Formulário de Logout -->
-<form th:action="@{/logout}" method="post" style="margin-top: 20px;">
-    <button type="submit">Sair</button>
-</form>
+
+<!-- Header (igual ao cliente_dashboard) -->
+<header class="site-header">
+    <div class="container header-inner">
+        <a th:href="@{/}" class="brand">
+            <img th:src="@{/img/logo.png}" alt="Logo Assistência Jurídica Gratuita" class="brand-logo">
+            <span class="brand-name">ASSISTÊNCIA JURÍDICA GRATUITA</span>
+        </a>
+
+        <button class="nav-toggle" aria-controls="site-nav" aria-expanded="false">☰</button>
+
+        <nav id="site-nav" class="site-nav">
+            <a th:href="@{/como-funciona}">Como funciona</a>
+            <a th:href="@{/quem-atendemos}">Quem atendemos</a>
+            <a th:href="@{/areas}">Áreas de atuação</a>
+            <a th:href="@{/entrar}" class="btn btn-ghost">Entrar</a>
+        </nav>
+    </div>
+</header>
+
+<main class="dashboard-container">
+    <!-- Sidebar do Advogado -->
+    <aside class="sidebar">
+        <div>
+            <div class="sidebar-profile">
+                <img th:src="@{/img/user-avatar.png}" alt="Foto do Advogado">
+                <h3 th:text="${advogado.nome}">Nome do Advogado</h3>
+                <p th:text="${advogado.email}">email@advogado.com</p>
+                <small th:text="'OAB: ' + ${advogado.oab}">OAB: 000000</small>
+            </div>
+
+            <nav class="sidebar-nav">
+                <ul>
+                    <li>
+                        <a th:href="@{/advogado/dashboard}" class="active">Início</a>
+                    </li>
+                    <li>
+                        <a th:href="@{/advogado/solicitacoes/listar}">Solicitações abertas</a>
+                    </li>
+                    <li>
+                        <a th:href="@{/advogado/solicitacoes/aceitas}">Meu histórico de solicitações</a>
+                    </li>
+                </ul>
+
+                <form th:action="@{/logout}" method="post">
+                    <button type="submit" class="btn-logout">Sair</button>
+                </form>
+            </nav>
+        </div>
+    </aside>
+
+    <!-- Conteúdo principal -->
+    <section class="main-content">
+        <header class="page-header">
+            <h1>Bem-vindo(a), <span th:text="${advogado.nome}">Advogado(a)</span></h1>
+            <p>Veja um resumo das solicitações da plataforma e dos casos que você já assumiu.</p>
+        </header>
+
+        <!-- KPIs -->
+        <div class="kpi-grid">
+            <article class="card">
+                <h2 class="card-title">Solicitações abertas</h2>
+                <p class="kpi-value" th:text="${qtdSolicitacoesAbertas}">0</p>
+                <p class="kpi-subtext">Casos esperando um advogado assumir.</p>
+                <div class="card-actions">
+                    <a th:href="@{/advogado/solicitacoes/listar}" class="btn-primary-sm">
+                        Ver todas as abertas
+                    </a>
+                </div>
+            </article>
+
+            <article class="card">
+                <h2 class="card-title">Meus casos aceitos</h2>
+                <p class="kpi-value" th:text="${qtdSolicitacoesAceitas}">0</p>
+                <p class="kpi-subtext">Total de solicitações que você já assumiu.</p>
+                <div class="card-actions">
+                    <a th:href="@{/advogado/solicitacoes/aceitas}" class="btn-outline-sm">
+                        Ver meu histórico
+                    </a>
+                </div>
+            </article>
+        </div>
+
+        <!-- Solicitações abertas recentes -->
+        <article class="card">
+            <h2 class="section-title">Solicitações abertas mais recentes</h2>
+
+            <div th:if="${#lists.isEmpty(solicitacoesRecentes)}" class="empty-state">
+                Não há solicitações abertas no momento.
+            </div>
+
+            <div class="table-wrapper" th:if="${!#lists.isEmpty(solicitacoesRecentes)}">
+                <table>
+                    <thead>
+                    <tr>
+                        <th>ID</th>
+                        <th>Área</th>
+                        <th>Cliente</th>
+                        <th>Criada em</th>
+                        <th>Status</th>
+                        <th>Ações</th>
+                    </tr>
+                    </thead>
+                    <tbody>
+                    <tr th:each="sol : ${solicitacoesRecentes}">
+                        <td th:text="${sol.id}">1</td>
+                        <td th:text="${sol.area.nome}">Previdenciário</td>
+                        <td th:text="${sol.cliente.nome}">Cliente Exemplo</td>
+                        <td th:text="${#temporals.format(sol.dataCriacao, 'dd/MM/yyyy HH:mm')}">10/10/2024 14:30</td>
+                        <td>
+                            <span class="tag-status"
+                                  th:classappend="
+                                    ${sol.status.name() == 'ABERTA'} ? ' tag-aberta' :
+                                    (${sol.status.name() == 'EM_ANALISE'} ? ' tag-em-analise' :
+                                    (${sol.status.name() == 'CONCLUIDA'} ? ' tag-concluida' : ' tag-cancelada'))"
+                                  th:text="${sol.status}">
+                                ABERTA
+                            </span>
+                        </td>
+                        <td class="case-actions">
+                            <form th:action="@{/advogado/solicitacao/assumir/{id}(id=${sol.id})}"
+                                  method="post">
+                                <button type="submit" class="btn-assumir">
+                                    Assumir caso
+                                </button>
+                            </form>
+                        </td>
+                    </tr>
+                    </tbody>
+                </table>
+            </div>
+        </article>
+
+        <!-- Meus últimos casos aceitos -->
+        <article class="card">
+            <h2 class="section-title">Meus últimos casos aceitos</h2>
+
+            <div th:if="${#lists.isEmpty(solicitacoesAdvogadoRecentes)}" class="empty-state">
+                Você ainda não assumiu nenhuma solicitação.
+            </div>
+
+            <div class="table-wrapper" th:if="${!#lists.isEmpty(solicitacoesAdvogadoRecentes)}">
+                <table>
+                    <thead>
+                    <tr>
+                        <th>ID</th>
+                        <th>Área</th>
+                        <th>Cliente</th>
+                        <th>Aceita em</th>
+                        <th>Status</th>
+                    </tr>
+                    </thead>
+                    <tbody>
+                    <tr th:each="sol : ${solicitacoesAdvogadoRecentes}">
+                        <td th:text="${sol.id}">10</td>
+                        <td th:text="${sol.area.nome}">Trabalhista</td>
+                        <td th:text="${sol.cliente.nome}">Cliente Exemplo</td>
+                        <td th:text="${#temporals.format(sol.dataAceite, 'dd/MM/yyyy HH:mm')}">09/10/2024 09:00</td>
+                        <td>
+                            <span class="tag-status"
+                                  th:classappend="
+                                    ${sol.status.name() == 'ABERTA'} ? ' tag-aberta' :
+                                    (${sol.status.name() == 'EM_ANALISE'} ? ' tag-em-analise' :
+                                    (${sol.status.name() == 'CONCLUIDA'} ? ' tag-concluida' : ' tag-cancelada'))"
+                                  th:text="${sol.status}">
+                                EM_ANALISE
+                            </span>
+                        </td>
+                    </tr>
+                    </tbody>
+                </table>
+            </div>
+        </article>
+    </section>
+</main>
+
 </body>
 </html>

@@ -1,64 +1,251 @@
 <!DOCTYPE html>
-<html lang="pt-br" xmlns:th="http://www.thymeleaf.org" xmlns:sec="http://www.thymeleaf.org/extras/spring-security">
+<html lang="pt-br" xmlns:th="http://www.thymeleaf.org">
 <head>
-    <meta charset="UTF-8">
-    <title>Meu Histórico de Solicitações Aceitas</title>
-    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.2/dist/css/bootstrap.min.css" rel="stylesheet">
+    <meta charset="UTF-8"/>
+    <meta name="viewport" content="width=device-width, initial-scale=1"/>
+    <title>Assistência Jurídica Gratuita — Solicitações aceitas</title>
+
+    <!-- Inter (Google Fonts) -->
+    <link rel="preconnect" href="https://fonts.googleapis.com"/>
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin/>
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800&display=swap"
+          rel="stylesheet"/>
+
+    <!-- CSS principal do sistema -->
+    <link rel="stylesheet" th:href="@{/css/style.css}"/>
+
+    <style>
+        :root {
+            --page-bg: #f3f4f6;
+            --card-bg: #ffffff;
+            --gray-50: #f9fafb;
+            --gray-100: #e5e7eb;
+            --gray-500: #6b7280;
+            --gray-800: #111827;
+            --blue-900: #004D99;
+        }
+
+        body {
+            margin: 0;
+            font-family: 'Inter', system-ui, -apple-system, BlinkMacSystemFont, 'Segoe UI', sans-serif;
+            background-color: var(--page-bg);
+        }
+
+        /* container geral da página */
+        .page-container {
+            max-width: 1100px;
+            margin: 0 auto;
+            padding: 2rem 1.5rem 3rem;
+        }
+
+        .page-header {
+            display: flex;
+            align-items: center;
+            justify-content: space-between;
+            gap: 1rem;
+            margin-bottom: 1.5rem;
+        }
+
+        .page-header h1 {
+            margin: 0;
+            font-size: 1.5rem;
+            font-weight: 700;
+            color: var(--gray-800);
+        }
+
+        .page-header p {
+            margin: 0.25rem 0 0;
+            font-size: 0.9rem;
+            color: var(--gray-500);
+        }
+
+        .btn-secondary {
+            display: inline-block;
+            padding: 0.45rem 0.9rem;
+            border-radius: 999px;
+            border: 1px solid var(--gray-300, #d1d5db);
+            background-color: var(--gray-50);
+            font-size: 0.85rem;
+            text-decoration: none;
+            color: var(--gray-800);
+        }
+
+        .btn-secondary:hover {
+            background-color: #e5e7eb;
+        }
+
+        .card {
+            background-color: var(--card-bg);
+            border-radius: 0.75rem;
+            box-shadow: 0 2px 6px rgba(0, 0, 0, 0.05);
+            padding: 1.25rem 1.25rem 1rem;
+        }
+
+        .alert {
+            padding: 0.75rem 1rem;
+            border-radius: 0.5rem;
+            font-size: 0.85rem;
+            margin-bottom: 1rem;
+        }
+
+        .alert-success {
+            background-color: #dcfce7;
+            color: #166534;
+        }
+
+        .alert-error {
+            background-color: #fee2e2;
+            color: #b91c1c;
+        }
+
+        .table-wrapper {
+            overflow-x: auto;
+        }
+
+        table {
+            width: 100%;
+            border-collapse: collapse;
+            font-size: 0.85rem;
+        }
+
+        thead tr {
+            background-color: var(--gray-100);
+        }
+
+        th, td {
+            padding: 0.55rem 0.7rem;
+            text-align: left;
+            border-bottom: 1px solid var(--gray-100);
+        }
+
+        th {
+            font-weight: 600;
+            color: var(--gray-800);
+            white-space: nowrap;
+        }
+
+        td {
+            color: var(--gray-800);
+        }
+
+        .empty-state {
+            font-size: 0.9rem;
+            color: var(--gray-500);
+            padding: 0.5rem 0;
+        }
+
+        .tag-status {
+            display: inline-block;
+            padding: 0.15rem 0.5rem;
+            border-radius: 999px;
+            font-size: 0.75rem;
+        }
+
+        .tag-aberta {
+            background-color: #e0f2fe;
+            color: #0369a1;
+        }
+
+        .tag-em-analise {
+            background-color: #fef9c3;
+            color: #854d0e;
+        }
+
+        .tag-concluida {
+            background-color: #dcfce7;
+            color: #166534;
+        }
+
+        .tag-cancelada {
+            background-color: #fee2e2;
+            color: #b91c1c;
+        }
+
+        @media (max-width: 768px) {
+            .page-header {
+                flex-direction: column;
+                align-items: flex-start;
+            }
+        }
+    </style>
 </head>
 <body>
-<nav class="navbar navbar-expand-lg bg-body-tertiary" th:insert="~{home :: nav}"></nav>
 
-<div class="container mt-4">
-    <h2>Meu Histórico de Solicitações Aceitas</h2>
+<!-- Header igual ao restante do site -->
+<header class="site-header">
+    <div class="container header-inner">
+        <a th:href="@{/}" class="brand">
+            <img th:src="@{/img/logo.png}" alt="Logo Assistência Jurídica Gratuita" class="brand-logo">
+            <span class="brand-name">ASSISTÊNCIA JURÍDICA GRATUITA</span>
+        </a>
 
-    <div th:if="${sucesso}" class="alert alert-success" role="alert" th:text="${sucesso}"></div>
+        <button class="nav-toggle" aria-controls="site-nav" aria-expanded="false">☰</button>
 
-    <div th:if="${#lists.isEmpty(solicitacoes)}">
-        <p class="text-muted">Você ainda não assumiu nenhuma solicitação.</p>
-        <a href="/advogado/solicitacoes/listar" class="btn btn-primary">Ver Solicitações Abertas</a>
+        <nav id="site-nav" class="site-nav">
+            <a th:href="@{/como-funciona}">Como funciona</a>
+            <a th:href="@{/quem-atendemos}">Quem atendemos</a>
+            <a th:href="@{/areas}">Áreas de atuação</a>
+            <a th:href="@{/advogado/dashboard}" class="btn btn-ghost">Área do advogado</a>
+        </nav>
     </div>
+</header>
 
-    <div th:unless="${#lists.isEmpty(solicitacoes)}" class="table-responsive">
-        <table class="table table-striped table-hover">
-            <thead>
+<main class="page-container">
+
+    <header class="page-header">
+        <div>
+            <h1>Meus casos aceitos</h1>
+            <p>Veja todas as solicitações que você já assumiu na plataforma.</p>
+        </div>
+
+        <a th:href="@{/advogado/dashboard}" class="btn-secondary">Voltar ao painel</a>
+    </header>
+
+    <section class="card">
+
+        <!-- mensagens de sucesso/erro -->
+        <div th:if="${sucesso}" class="alert alert-success" th:text="${sucesso}"></div>
+        <div th:if="${erro}" class="alert alert-error" th:text="${erro}"></div>
+
+        <div th:if="${#lists.isEmpty(solicitacoes)}" class="empty-state">
+            Você ainda não assumiu nenhuma solicitação.
+        </div>
+
+        <div class="table-wrapper" th:if="${!#lists.isEmpty(solicitacoes)}">
+            <table>
+                <thead>
                 <tr>
-                    <th>#ID</th>
-                    <th>Tema</th>
-                    <th>Categoria</th>
-                    <th>Data Criação</th>
-                    <th>Data Aceite</th>
-                    <th>Status</th>
+                    <th>ID</th>
+                    <th>Área</th>
                     <th>Cliente</th>
+                    <th>Criada em</th>
+                    <th>Status</th>
                 </tr>
-            </thead>
-            <tbody>
-                <tr th:each="solicitacao : ${solicitacoes}">
-                    <td th:text="${solicitacao.id}"></td>
-                    <td th:text="${solicitacao.tema}"></td>
-                    <td th:text="${solicitacao.categoria}"></td>
-                    <td th:text="${#temporals.format(solicitacao.dataCriacao, 'dd/MM/yyyy HH:mm')}"></td>
-                    <td th:text="${#temporals.format(solicitacao.dataAceite, 'dd/MM/yyyy HH:mm')}"></td>
-                     <td>
-                        <span th:switch="${solicitacao.status}" class="badge"
-                              th:classappend="${solicitacao.status.name() == 'ABERTA' ? 'bg-warning text-dark' :
-                                               (solicitacao.status.name() == 'EM_ANALISE' ? 'bg-info text-dark' :
-                                               (solicitacao.status.name() == 'CONCLUIDA' ? 'bg-success' :
-                                               (solicitacao.status.name() == 'CANCELADA' ? 'bg-danger' : 'bg-secondary')))}">
-                            <span th:case="'ABERTA'">Aberta</span>
-                            <span th:case="'EM_ANALISE'">Em Análise</span>
-                            <span th:case="'CONCLUIDA'">Concluída</span>
-                            <span th:case="'CANCELADA'">Cancelada</span>
-                            <span th:case="*">Desconhecido</span>
+                </thead>
+                <tbody>
+                <tr th:each="sol : ${solicitacoes}">
+                    <td th:text="${sol.id}">41</td>
+                    <td th:text="${sol.area != null ? sol.area.nome : 'Não informada'}">Trabalhista</td>
+                    <td th:text="${sol.cliente.nome}">José da Silva</td>
+                    <td th:text="${#temporals.format(sol.dataCriacao, 'dd/MM/yyyy HH:mm')}">
+                        24/10/2025 18:04
+                    </td>
+                    <td>
+                        <span class="tag-status"
+                              th:classappend="
+                                ${sol.status.name() == 'ABERTA'} ? ' tag-aberta' :
+                                (${sol.status.name() == 'EM_ANALISE'} ? ' tag-em-analise' :
+                                (${sol.status.name() == 'CONCLUIDA'} ? ' tag-concluida' : ' tag-cancelada'))"
+                              th:text="${sol.status}">
+                            EM_ANALISE
                         </span>
                     </td>
-                    <td th:text="${solicitacao.cliente.nome}"></td>
                 </tr>
-            </tbody>
-        </table>
-    </div>
-     <a href="/" class="btn btn-secondary mt-3">Voltar ao Painel</a>
-</div>
+                </tbody>
+            </table>
+        </div>
+    </section>
+</main>
 
-<script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.2/dist/js/bootstrap.bundle.min.js"></script>
 </body>
 </html>

@@ -1,3 +1,4 @@
+//script só da home basicamente
 function toggleNav(){
   const btn = document.querySelector('.nav-toggle');
   const nav = document.getElementById('site-nav');

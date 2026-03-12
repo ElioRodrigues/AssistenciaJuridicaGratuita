@@ -1,64 +1,222 @@
 <!DOCTYPE html>
-<html lang="pt-br" xmlns:th="http://www.thymeleaf.org" xmlns:sec="http://www.thymeleaf.org/extras/spring-security">
+<html lang="pt-br" xmlns:th="http://www.thymeleaf.org"
+      xmlns:sec="http://www.thymeleaf.org/extras/spring-security">
 <head>
-    <meta charset="UTF-8">
-    <title>Meu Histórico de Solicitações</title>
-    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.2/dist/css/bootstrap.min.css" rel="stylesheet">
+    <meta charset="UTF-8"/>
+    <meta name="viewport" content="width=device-width, initial-scale=1"/>
+    <title>Assistência Jurídica Gratuita — Histórico de Solicitações</title>
+
+    <!-- Inter (Google Fonts) -->
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800&display=swap" rel="stylesheet">
+
+    <!-- CSS global -->
+    <link rel="stylesheet" th:href="@{/css/style.css}"/>
+
+    <style>
+        body {
+            background-color: var(--color-light-gray);
+        }
+
+        .page-container {
+            max-width: 1200px;
+            margin: 0 auto;
+            padding: 2rem 1.5rem 3rem;
+        }
+
+        .page-header {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            margin-bottom: 1.5rem;
+        }
+
+        .page-header h1 {
+            margin: 0;
+            color: var(--color-dark-blue);
+            font-size: 1.75rem;
+        }
+
+        .page-header a.btn-voltar {
+            text-decoration: none;
+            padding: 0.5rem 1rem;
+            border-radius: 0.25rem;
+            border: 1px solid var(--color-gray-300);
+            color: var(--color-gray-800);
+            font-size: 0.875rem;
+        }
+
+        .page-header a.btn-voltar:hover {
+            background-color: var(--color-gray-100);
+        }
+
+        .card {
+            background-color: var(--color-white);
+            border-radius: 0.5rem;
+            box-shadow: 0 2px 4px rgba(0, 0, 0, 0.05);
+            padding: 1.5rem;
+        }
+
+        table {
+            width: 100%;
+            border-collapse: collapse;
+            font-size: 0.9rem;
+        }
+
+        thead {
+            background-color: var(--color-gray-50);
+        }
+
+        th, td {
+            padding: 0.75rem;
+            text-align: left;
+            border-bottom: 1px solid var(--color-gray-100);
+        }
+
+        th {
+            font-weight: 600;
+            color: var(--color-gray-700);
+        }
+
+        tbody tr:hover {
+            background-color: #f9fafb;
+        }
+
+        .status-badge {
+            font-size: 0.75rem;
+            padding: 0.25rem 0.5rem;
+            border-radius: 0.25rem;
+            font-weight: 600;
+            display: inline-block;
+        }
+
+        .status-em-andamento {
+            background-color: #e0f7fa;
+            color: #00796b;
+        }
+
+        .status-aguardando {
+            background-color: #fffde7;
+            color: #fbc02d;
+        }
+
+        .status-em-analise {
+            background-color: #e3f2fd;
+            color: #1976d2;
+        }
+
+        .status-concluido {
+            background-color: #e8f5e9;
+            color: #2e7d32;
+        }
+
+        .sem-registros {
+            text-align: center;
+            padding: 2rem 1rem;
+            color: var(--color-gray-500);
+        }
+    </style>
 </head>
 <body>
-<nav class="navbar navbar-expand-lg bg-body-tertiary" th:insert="~{home :: nav}"></nav>
 
-<div class="container mt-4">
-    <h2>Meu Histórico de Solicitações</h2>
+<!-- Header (igual ao da dashboard) -->
+<header class="site-header">
+    <div class="container header-inner">
+        <a th:href="@{/}" class="brand">
+            <img th:src="@{/img/logo.png}" alt="Logo Assistência Jurídica Gratuita" class="brand-logo">
+            <span class="brand-name">ASSISTÊNCIA JURÍDICA GRATUITA</span>
+        </a>
 
-    <div th:if="${sucesso}" class="alert alert-success" role="alert" th:text="${sucesso}"></div>
+        <button class="nav-toggle" aria-controls="site-nav" aria-expanded="false" onclick="toggleNav()">☰</button>
 
-    <div th:if="${#lists.isEmpty(solicitacoes)}">
-        <p class="text-muted">Você ainda não criou nenhuma solicitação.</p>
-        <a href="/cliente/solicitacao/nova" class="btn btn-primary">Criar Nova Solicitação</a>
+        <nav id="site-nav" class="site-nav">
+            <a th:href="@{/como-funciona}">Como funciona</a>
+            <a th:href="@{/quem-atendemos}">Quem atendemos</a>
+            <a th:href="@{/areas}">Áreas de atuação</a>
+
+            <!-- Só mostra "Entrar" para quem NÃO ta autenticado, depois rever isso pq alguem não autenticado não deveria ta ai, ent fica meio burro -->
+            <span sec:authorize="isAnonymous()">
+        <a th:href="@{/entrar}" class="btn btn-ghost">Entrar</a>
+    </span>
+
+            <!-- Após login como CLIENTE, aparece "Área do cliente" -->
+            <span sec:authorize="hasAuthority('ROLE_CLIENTE')">
+        <a th:href="@{/cliente/dashboard}" class="btn btn-ghost">Área do cliente</a>
+    </span>
+        </nav>
+
+    </div>
+</header>
+
+<main class="page-container">
+    <div class="page-header">
+        <h1>Histórico de Solicitações</h1>
+        <a th:href="@{/cliente/dashboard}" class="btn-voltar">← Voltar para a Dashboard</a>
     </div>
 
-    <div th:unless="${#lists.isEmpty(solicitacoes)}" class="table-responsive">
-        <table class="table table-striped table-hover">
+    <div class="card">
+        <table th:if="${not #lists.isEmpty(solicitacoes)}">
             <thead>
-                <tr>
-                    <th>#ID</th>
-                    <th>Tema</th>
-                    <th>Categoria</th>
-                    <th>Data Criação</th>
-                    <th>Status</th>
-                    <th>Advogado Responsável</th>
-                    <th>Data Aceite</th>
-                </tr>
+            <tr>
+                <th>#</th>
+                <th>Descrição</th>
+                <th>Área</th>
+                <th>Status</th>
+                <th>Data de Criação</th>
+                <th>Data de Aceite</th>
+            </tr>
             </thead>
             <tbody>
-                <tr th:each="solicitacao : ${solicitacoes}">
-                    <td th:text="${solicitacao.id}"></td>
-                    <td th:text="${solicitacao.tema}"></td>
-                    <td th:text="${solicitacao.categoria}"></td>
-                    <td th:text="${#temporals.format(solicitacao.dataCriacao, 'dd/MM/yyyy HH:mm')}"></td>
-                    <td>
-                        <span th:switch="${solicitacao.status}" class="badge"
-                              th:classappend="${solicitacao.status.name() == 'ABERTA' ? 'bg-warning text-dark' :
-                                               (solicitacao.status.name() == 'EM_ANALISE' ? 'bg-info text-dark' :
-                                               (solicitacao.status.name() == 'CONCLUIDA' ? 'bg-success' :
-                                               (solicitacao.status.name() == 'CANCELADA' ? 'bg-danger' : 'bg-secondary')))}">
-                            <span th:case="'ABERTA'">Aberta</span>
-                            <span th:case="'EM_ANALISE'">Em Análise</span>
-                            <span th:case="'CONCLUIDA'">Concluída</span>
-                            <span th:case="'CANCELADA'">Cancelada</span>
-                            <span th:case="*">Desconhecido</span>
-                        </span>
-                    </td>
-                    <td th:text="${solicitacao.advogado != null ? solicitacao.advogado.nome : '-'}"></td>
-                    <td th:text="${solicitacao.dataAceite != null ? #temporals.format(solicitacao.dataAceite, 'dd/MM/yyyy HH:mm') : '-'}"></td>
-                </tr>
+            <tr th:each="solicitacao : ${solicitacoes}">
+                <td th:text="${solicitacao.id}">1</td>
+                <td th:text="${solicitacao.descricao}">Descrição da solicitação</td>
+                <td th:text="${solicitacao.area.nome}">Área</td>
+                <td>
+                    <span class="status-badge"
+                          th:classappend="${
+                                solicitacao.status.name() == 'EM_ANDAMENTO' ? ' status-em-andamento' :
+                                (solicitacao.status.name() == 'AGUARDANDO_DOCUMENTACAO' ? ' status-aguardando' :
+                                (solicitacao.status.name() == 'EM_ANALISE' ? ' status-em-analise' :
+                                (solicitacao.status.name() == 'CONCLUIDO' ? ' status-concluido' : '')))
+                          }"
+                          th:text="${solicitacao.status.displayValue}">
+                        Em andamento
+                    </span>
+                </td>
+                <td th:text="${#temporals.format(solicitacao.dataCriacao, 'dd/MM/yyyy')}">
+                    15/03/2024
+                </td>
+                <td th:text="${solicitacao.dataAceite != null ? #temporals.format(solicitacao.dataAceite, 'dd/MM/yyyy') : '-'}">
+                    -
+                </td>
+            </tr>
             </tbody>
         </table>
-    </div>
-     <a href="/" class="btn btn-secondary mt-3">Voltar ao Painel</a>
-</div>
 
-<script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.2/dist/js/bootstrap.bundle.min.js"></script>
+        <div class="sem-registros" th:if="${#lists.isEmpty(solicitacoes)}">
+            Você ainda não possui solicitações registradas.
+        </div>
+    </div>
+</main>
+
+<!-- Footer -->
+<footer class="site-footer">
+    <div class="container">
+        <nav class="footer-nav">
+            <a th:href="@{/contato}">Contato</a>
+            <a th:href="@{/termos}">Termos</a>
+            <a th:href="@{/acessibilidade}">Acessibilidade</a>
+            <a th:href="@{/aviso-legal}">Aviso Legal</a>
+            <a th:href="@{/lgpd}">LGPD</a>
+        </nav>
+        <p class="copyright">
+            © <span th:text="${#dates.format(#dates.createNow(),'yyyy')}"></span>
+            Assistência Jurídica Gratuita
+        </p>
+    </div>
+</footer>
+
+<script th:src="@{/js/app.js}"></script>
 </body>
 </html>

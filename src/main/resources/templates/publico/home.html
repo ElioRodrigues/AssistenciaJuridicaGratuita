@@ -29,8 +29,23 @@
             <a th:href="@{/como-funciona}">Como funciona</a>
             <a th:href="@{/quem-atendemos}">Quem atendemos</a>
             <a th:href="@{/areas}">Áreas de atuação</a>
-            <a th:href="@{/entrar}" class="btn btn-ghost">Entrar</a>
+
+            <!-- Link de login: só aparece pra quem NÃO está autenticado -->
+            <span sec:authorize="isAnonymous()">
+        <a th:href="@{/entrar}" class="btn btn-ghost">Entrar</a>
+    </span>
+
+            <!-- Dashboard do CLIENTE -->
+            <span sec:authorize="hasAuthority('ROLE_CLIENTE')">
+        <a th:href="@{/cliente/dashboard}" class="btn btn-ghost">Minha área</a>
+    </span>
+
+            <!-- Dashboard do ADVOGADO -->
+            <span sec:authorize="hasAuthority('ROLE_ADVOGADO')">
+        <a th:href="@{/advogado/dashboard}" class="btn btn-ghost">Área do advogado</a>
+    </span>
         </nav>
+
     </div>
 </header>
 
@@ -75,7 +90,6 @@
                     <img th:src="@{/img/icon-civil.png}" alt="" aria-hidden="true">
                     <div><h3>Civil</h3><p>Conflitos entre pessoas, herança, contratos.</p></div>
 
-                    <!-- Link invisível estendido sobre o card (não altera aparência) -->
                     <a th:href="@{/areas/civil}" class="stretched-link" aria-label="Abrir página da área Civil"></a>
                 </article>
 

@@ -1,9 +1,20 @@
 package com.example.ProjetoAssistenciaJuridica.model;
 
 public enum StatusSolicitacao {
-    ABERTA,      // Solicitação criada pelo cliente, aguardando advogado
-    EM_ANALISE,  // Advogado assumiu a solicitação
-    CONCLUIDA,   // Caso resolvido ou assistência finalizada
-    CANCELADA    // Solicitação cancelada pelo cliente ou administrador
-}
+    ABERTA("Aberta"),
+    EM_ANALISE("Em análise"),
+    AGUARDANDO_DOCUMENTACAO("Aguardando documentação"),
+    EM_ANDAMENTO("Em andamento"),
+    FINALIZADA("Finalizada"),
+    CANCELADA("Cancelada");
 
+    private final String displayValue;
+
+    StatusSolicitacao(String displayValue) {
+        this.displayValue = displayValue;
+    }
+
+    public String getDisplayValue() {
+        return displayValue;
+    }
+}
